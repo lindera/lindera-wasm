@@ -9,7 +9,7 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  fmt:
+  format:
     name: Format
     strategy:
       matrix:
@@ -32,31 +32,33 @@ jobs:
       - name: Check format
         run: cargo fmt --all -- --check
 
-  check:
-    name: Check
-    strategy:
-      matrix:
-        platform:
-          - runner: ubuntu-latest
-            target: x86_64
-        toolchain: [stable]
-        features: [cjk]
-    runs-on: ${{ matrix.platform.runner }}
-    steps:
-      - name: Run checkout
-        uses: actions/checkout@v4
+  # check:
+  #   name: Check
+  #   needs: format
+  #   strategy:
+  #     matrix:
+  #       platform:
+  #         - runner: ubuntu-latest
+  #           target: x86_64
+  #       toolchain: [stable]
+  #       features: [cjk]
+  #   runs-on: ${{ matrix.platform.runner }}
+  #   steps:
+  #     - name: Run checkout
+  #       uses: actions/checkout@v4
 
-      - name: Install toolchain
-        uses: dtolnay/rust-toolchain@v1
-        with:
-          toolchain: ${{ matrix.toolchain }}
-          components: rustfmt, clippy
+  #     - name: Install toolchain
+  #       uses: dtolnay/rust-toolchain@v1
+  #       with:
+  #         toolchain: ${{ matrix.toolchain }}
+  #         components: rustfmt, clippy
 
-      - name: Run check
-        run: cargo check --features "${{ matrix.features }}"
+  #     - name: Run check
+  #       run: cargo check --features "${{ matrix.features }}"
 
   test:
     name: Test
+    needs: format
     strategy:
       matrix:
         platform:
