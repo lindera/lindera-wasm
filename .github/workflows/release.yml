@@ -123,6 +123,11 @@ jobs:
       - name: Compile
         run: wasm-pack build --release --features=${{ matrix.features }} --target=${{ matrix.platform.wasm-target }}
 
+      # - name: Check npm whoami
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+      #   run: npm whoami
+
       - name: Publish to npm
         run: wasm-pack publish --access public --target ${{ matrix.platform.wasm-target }}
         env:
