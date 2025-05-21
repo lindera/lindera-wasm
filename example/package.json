@@ -1,6 +1,6 @@
 {
   "name": "lindera-wasm-example",
-  "version": "0.42.2",
+  "version": "0.42.3",
   "description": "Example project for Lindera WASM",
   "scripts": {
     "start": "webpack serve --config webpack.config.js",

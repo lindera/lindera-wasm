@@ -1,4 +1,4 @@
-.DEFAULT_GOAL := build
+.DEFAULT_GOAL := help
 
 VERSION := $(shell cargo metadata --no-deps --format-version=1 | jq -r '.packages[] | select(.name=="lindera-wasm") | .version')
 
@@ -24,11 +24,14 @@ build: ## Build the project
 publish: ## Publish the project
 	wasm-pack publish --access=public --target=bundler
 
-build_example: ## Build the example application
-	jq '.version = "$(VERSION)"' ./example/package.json > ./example/temp.json && mv ./example/temp.json ./example/package.json
-	cd example && npm install && npm run build && cp index.html dist/index.html
+build-example: ## Build the example application
+	cd example && \
+	jq '.version = "$(VERSION)"' ./package.json > ./temp.json && mv ./temp.json ./package.json && \
+	npm install && \
+	npm run build && \
+	cp index.html dist/index.html
 
-run_example: ## Run the example application
+run-example: ## Run the example application
 	cd example && npm run start
 
 tag: ## Make a tag
