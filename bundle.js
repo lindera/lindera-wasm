@@ -205,7 +205,7 @@ eval("__webpack_require__.a(module, async (__webpack_handle_async_dependencies__
 /******/ 	
 /******/ 	/* webpack/runtime/publicPath */
 /******/ 	(() => {
-/******/ 		__webpack_require__.p = "/example/";
+/******/ 		__webpack_require__.p = "/lindera-wasm/";
 /******/ 	})();
 /******/ 	
 /************************************************************************/
