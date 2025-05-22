@@ -11,6 +11,13 @@ use lindera::tokenizer::{
     Tokenizer as LinderaTokenizer, TokenizerBuilder as LinderaTokenizerBuilder,
 };
 
+const VERSION: &str = env!("CARGO_PKG_VERSION");
+
+#[wasm_bindgen]
+pub fn get_version() -> String {
+    VERSION.to_string()
+}
+
 fn token_to_json(token: &mut Token) -> Value {
     serde_json::json!({
         "text": token.text,
