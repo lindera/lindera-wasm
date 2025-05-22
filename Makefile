@@ -9,7 +9,6 @@ clean: ## Clean the project
 	cargo clean
 	rm -rf pkg
 
-
 format: ## Format the project
 	cargo fmt
 
