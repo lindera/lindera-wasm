@@ -13,7 +13,7 @@ use lindera::tokenizer::{
 
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 
-#[wasm_bindgen]
+#[wasm_bindgen(js_name = "getVersion")]
 pub fn get_version() -> String {
     VERSION.to_string()
 }
@@ -52,6 +52,7 @@ impl TokenizerBuilder {
         Ok(Tokenizer { inner })
     }
 
+    #[wasm_bindgen(js_name = "setMode")]
     pub fn set_mode(&mut self, mode: &str) -> Result<(), JsValue> {
         let m = Mode::from_str(mode).map_err(|e| JsValue::from_str(&e.to_string()))?;
         self.inner.set_segmenter_mode(&m);
@@ -59,6 +60,7 @@ impl TokenizerBuilder {
         Ok(())
     }
 
+    #[wasm_bindgen(js_name = "setDictionaryKind")]
     pub fn set_dictionary_kind(&mut self, kind: &str) -> Result<(), JsValue> {
         let k = DictionaryKind::from_str(kind).map_err(|e| JsValue::from_str(&e.to_string()))?;
         self.inner.set_segmenter_dictionary_kind(&k);
@@ -66,12 +68,14 @@ impl TokenizerBuilder {
         Ok(())
     }
 
+    #[wasm_bindgen(js_name = "setDictionaryPath")]
     pub fn set_dictionary_path(&mut self, path: &str) -> Result<(), JsValue> {
         self.inner.set_segmenter_dictionary_path(Path::new(path));
 
         Ok(())
     }
 
+    #[wasm_bindgen(js_name = "setUserDictionaryPath")]
     pub fn set_user_dictionary_path(&mut self, path: &str) -> Result<(), JsValue> {
         self.inner
             .set_segmenter_user_dictionary_path(Path::new(path));
@@ -79,6 +83,7 @@ impl TokenizerBuilder {
         Ok(())
     }
 
+    #[wasm_bindgen(js_name = "setUserDictionaryKind")]
     pub fn set_user_dictionary_kind(&mut self, kind: &str) -> Result<(), JsValue> {
         let k = DictionaryKind::from_str(kind).map_err(|e| JsValue::from_str(&e.to_string()))?;
         self.inner.set_segmenter_user_dictionary_kind(&k);
@@ -86,6 +91,7 @@ impl TokenizerBuilder {
         Ok(())
     }
 
+    #[wasm_bindgen(js_name = "appendCharacterFilter")]
     pub fn append_character_filter(&mut self, name: &str, args: JsValue) -> Result<(), JsValue> {
         let a = serde_wasm_bindgen::from_value::<Value>(args)
             .map_err(|e| JsValue::from_str(&e.to_string()))?;
@@ -95,6 +101,7 @@ impl TokenizerBuilder {
         Ok(())
     }
 
+    #[wasm_bindgen(js_name = "appendTokenFilter")]
     pub fn append_token_filter(&mut self, name: &str, args: JsValue) -> Result<(), JsValue> {
         let a = serde_wasm_bindgen::from_value::<Value>(args)
             .map_err(|e| JsValue::from_str(&e.to_string()))?;
