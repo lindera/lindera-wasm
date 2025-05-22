@@ -131,7 +131,7 @@ jobs:
 
       - name: Build example application
         run: |
-          cd example
+          cd lindera-wasm
           jq '.version = "${{ github.ref_name }}"' ./package.json > ./temp.json && mv ./temp.json ./package.json
           npm ci
           npm run build
@@ -142,7 +142,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./example/dist
+          publish_dir: ./lindera-wasm/dist
 
       - name: Publish to npm
         run: |
