@@ -39,5 +39,5 @@ WebAssembly of Lindera
 ## Run example web application
 
 ```shell
-% cd indera-wasm && npm run start
+% cd lindera-wasm && npm run start
 ```
