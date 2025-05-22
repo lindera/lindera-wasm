@@ -29,11 +29,11 @@ WebAssembly of Lindera
 ## Build example web application
 
 ```shell
-% cd example && npm install && npm run build && cp index.html dist/index.html
+% cd lindera-wasm && npm install && npm run build && cp index.html dist/index.html
 ```
 
 ## Run example web application
 
 ```shell
-% cd example && npm run start
+% cd indera-wasm && npm run start
 ```

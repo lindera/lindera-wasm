@@ -25,14 +25,21 @@ publish: ## Publish the project
 	wasm-pack publish --access=public --target=bundler
 
 build-example: ## Build the example application
-	cd example && \
+	cd lindera-wasm && \
 	jq '.version = "$(VERSION)"' ./package.json > ./temp.json && mv ./temp.json ./package.json && \
 	npm install && \
 	npm run build && \
 	cp index.html dist/index.html
 
 run-example: ## Run the example application
-	cd example && npm run start
+	cd lindera-wasm && npm run start
+
+clean-example: ## Clean the example application
+	cd lindera-wasm && \
+	rm -rf dist && \
+	rm -rf node_modules && \
+	rm -rf package-lock.json && \
+	rm -rf temp.json
 
 tag: ## Make a tag
 	git tag v$(VERSION)

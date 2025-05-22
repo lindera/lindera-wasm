@@ -1,4 +1,13 @@
-import { TokenizerBuilder } from '../../pkg/lindera_wasm.js';
+import { TokenizerBuilder, get_version } from '../../pkg/lindera_wasm.js';
+
+// Show the version in the title
+try {
+    const version = get_version();
+    document.title = `Lindera WASM v${version}`;
+    document.getElementById('title').textContent = `Lindera WASM v${version}`;
+} catch (e) {
+    console.error("Failed to get version:", e);
+}
 
 // Initialize the tokenizer
 let tokenizer = null;
