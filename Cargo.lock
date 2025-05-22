@@ -869,7 +869,7 @@ dependencies = [
 
 [[package]]
 name = "lindera-wasm"
-version = "0.42.4"
+version = "0.42.5"
 dependencies = [
  "lindera",
  "once_cell",

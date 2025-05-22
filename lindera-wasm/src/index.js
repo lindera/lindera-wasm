@@ -1,8 +1,8 @@
-import { TokenizerBuilder, get_version } from '../../pkg/lindera_wasm.js';
+import { TokenizerBuilder, getVersion } from '../../pkg/lindera_wasm.js';
 
 // Show the version in the title
 try {
-    const version = get_version();
+    const version = getVersion();
     document.title = `Lindera WASM v${version}`;
     document.getElementById('title').textContent = `Lindera WASM v${version}`;
 } catch (e) {
@@ -17,25 +17,25 @@ try {
     let builder = new TokenizerBuilder();
     // Set the dictionary kind to "ipadic" (Japanese)
     // You can also use "ko-dic" (Korean) or "cc-cedict" (Chinese) as the dictionary kind
-    builder.set_dictionary_kind("ipadic");
+    builder.setDictionaryKind("ipadic");
 
     // Set the tokenizer mode to "normal"
     // You can also use "decompose" for decomposing the compound words into their components
-    builder.set_mode("normal");
+    builder.setMode("normal");
 
     // Append character filters
-    builder.append_character_filter("unicode_normalize", { "kind": "nfkc" });
+    builder.appendCharacterFilter("unicode_normalize", { "kind": "nfkc" });
 
     // Append token filters
-    builder.append_token_filter("lowercase");
-    builder.append_token_filter("japanese_compound_word", {
+    builder.appendTokenFilter("lowercase");
+    builder.appendTokenFilter("japanese_compound_word", {
         "kind": "ipadic",
         "tags": [
             "名詞,数"
         ],
         "new_tag": "名詞,数"
     });
-    builder.append_token_filter("japanese_number", { "tags": ["名詞,数"] });
+    builder.appendTokenFilter("japanese_number", { "tags": ["名詞,数"] });
 
     // Build the Tokenizer instance
     tokenizer = builder.build();
