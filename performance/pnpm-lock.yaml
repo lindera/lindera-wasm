@@ -12,8 +12,8 @@ importers:
         specifier: ^0.1.2
         version: 0.1.2
       lindera-wasm:
-        specifier: ^0.42.3
-        version: 0.42.3
+        specifier: ^0.42.5
+        version: 0.42.5
     devDependencies:
       '@eslint/compat':
         specifier: ^1.2.5
@@ -925,8 +925,8 @@ packages:
     resolution: {integrity: sha512-utWOt/GHzuUxnLKxB6dk81RoOeoNeHgbrXiuGk4yyF5qlRz+iIVWu56E2fqGHFrXz0QNUhLB/8nKqvRH66JKGQ==}
     engines: {node: '>=10'}
 
-  lindera-wasm@0.42.3:
-    resolution: {integrity: sha512-YbCU6Nd3KfCYDsLjSa4ipVFmc2gcpA8SXvTL9KLSRNs8FGAPro/4+04Xr/+9GDg0TYDJOD6AEzttt/92+DtZmw==}
+  lindera-wasm@0.42.5:
+    resolution: {integrity: sha512-OIv57juJtl7KgASmLJHKVU6X8DkkPN1HrT/53ohKU7H1u5zmpbrKshL1cNOsVcryqIPIfTrmnbeXb084WEedlQ==}
 
   locate-character@3.0.0:
     resolution: {integrity: sha512-SW13ws7BjaeJ6p7Q6CO2nchbYEc3X3J6WrmTTDto7yMPqVSZTUyY5Tjbid+Ab8gLnATtygYtiDIJGQRRn2ZOiA==}
@@ -2021,7 +2021,7 @@ snapshots:
 
   lilconfig@2.1.0: {}
 
-  lindera-wasm@0.42.3: {}
+  lindera-wasm@0.42.5: {}
 
   locate-character@3.0.0: {}
 

@@ -144,11 +144,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./lindera-wasm/dist
 
-      - name: Build performance example application
-        run: |
-          cd example/performance
-          node scripts/build.js
-          
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:

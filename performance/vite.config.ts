@@ -4,5 +4,9 @@ import wasm from 'vite-plugin-wasm';
 import topLevelAwait from 'vite-plugin-top-level-await';
 
 export default defineConfig({
-	plugins: [sveltekit(), wasm(), topLevelAwait()]
+  plugins: [sveltekit(), wasm(), topLevelAwait()],
+  assetsInclude: ['**/*.wasm'],
+  ssr: {
+    noExternal: ['lindera-wasm']
+  }
 });

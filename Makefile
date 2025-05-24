@@ -41,6 +41,13 @@ clean-example: ## Clean the example application
 	rm -rf package-lock.json && \
 	rm -rf temp.json
 
+build-performance: ## Build the performance test application
+	cd performance && \
+	node scripts/build.js
+
+run-performance: ## Run the performance test application
+	cd performance && pnpm run dev
+
 tag: ## Make a tag
 	git tag v$(VERSION)
 	git push origin v$(VERSION)
