@@ -144,12 +144,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./lindera-wasm/dist
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./example/performance/dist
-
       - name: Publish to npm
         run: |
           if npx can-npm-publish --verbose pkg; then
