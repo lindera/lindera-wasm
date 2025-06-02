@@ -2,9 +2,6 @@
 
 VERSION := $(shell cargo metadata --no-deps --format-version=1 | jq -r '.packages[] | select(.name=="lindera-wasm") | .version')
 
-default: ## Show Makefile list
-	@echo $(MAKEFILE_LIST)
-
 clean: ## Clean the project
 	cargo clean
 	rm -rf pkg
