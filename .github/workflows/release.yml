@@ -63,8 +63,8 @@ jobs:
       - name: Run test
         run: wasm-pack test ${{ matrix.platform.test-runner }}
 
-  release:
-    name: Release
+  build-and-publish-npm:
+    name: Build and Publish to npm
     needs: [test]
     strategy:
       matrix:
@@ -75,13 +75,6 @@ jobs:
         toolchain: [stable]
         features: [cjk]
     runs-on: ${{ matrix.platform.runner }}
-    permissions:
-      # Use to sign the release artifacts
-      id-token: write
-      # Used to upload release artifacts
-      contents: write
-      # Used to generate artifact attestation
-      attestations: write
     steps:
       - name: Run checkout
         uses: actions/checkout@v4
@@ -105,6 +98,81 @@ jobs:
       - name: Compile
         run: wasm-pack build --release --features=${{ matrix.features }} --target=${{ matrix.platform.wasm-target }}
 
+      - name: Publish to npm
+        run: |
+          if npx can-npm-publish --verbose pkg; then
+            wasm-pack publish --access public --target ${{ matrix.platform.wasm-target }}
+          else
+            echo "wasm-pack publish skipped"
+          fi
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+
+  create-release:
+    name: Create GitHub Release
+    needs: [build-and-publish-npm]
+    runs-on: ubuntu-latest
+    permissions:
+      # Use to sign the release artifacts
+      id-token: write
+      # Used to upload release artifacts
+      contents: write
+      # Used to generate artifact attestation
+      attestations: write
+    steps:
+      - name: Run checkout
+        uses: actions/checkout@v4
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Release ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  deploy-pages:
+    name: Deploy to GitHub Pages
+    needs: [build-and-publish-npm]
+    strategy:
+      matrix:
+        platform:
+          - runner: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+            wasm-target: bundler
+        toolchain: [stable]
+        features: [cjk]
+    runs-on: ${{ matrix.platform.runner }}
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+      - name: Run checkout
+        uses: actions/checkout@v4
+
+      - name: Install toolchain
+        uses: dtolnay/rust-toolchain@v1
+        with:
+          toolchain: ${{ matrix.toolchain }}
+          target: ${{ matrix.platform.target }}
+          components: rustfmt, clippy
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+
+      - name: Install wasm-pack
+        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+
+      - name: Compile
+        run: wasm-pack build --release --features=${{ matrix.features }} --target=${{ matrix.platform.wasm-target }}
+
       - name: Build example application
         run: |
           cd lindera-wasm
@@ -120,35 +188,13 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./lindera-wasm/dist
 
-      - name: Publish to npm
-        run: |
-          if npx can-npm-publish --verbose pkg; then
-            wasm-pack publish --access public --target ${{ matrix.platform.wasm-target }}
-          else
-            echo "wasm-pack publish skipped"
-          fi
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
-
-      - name: Create GitHub Release
-        id: create_release
-        uses: softprops/action-gh-release@v2
-        with:
-          name: Release ${{ github.ref_name }}
-          tag_name: ${{ github.ref_name }}
-          draft: false
-          prerelease: false
-          generate_release_notes: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
   publish-crates:
     name: Publish crate
     strategy:
       matrix:
         os: [ubuntu-latest]
         toolchain: [stable]
-    needs: [release]
+    needs: [create-release, deploy-pages]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
