@@ -36,7 +36,7 @@ jobs:
 
   test:
     name: Test
-    needs: format
+    needs: [format]
     strategy:
       matrix:
         platform:
@@ -73,7 +73,7 @@ jobs:
             target: x86_64-unknown-linux-gnu
             wasm-target: bundler
         toolchain: [stable]
-        features: [cjk]
+        features: [ipadic, unidic, ko-dic, cc-cedict, cjk]
     runs-on: ${{ matrix.platform.runner }}
     steps:
       - name: Run checkout
@@ -92,18 +92,35 @@ jobs:
           node-version: 22.x
           registry-url: "https://registry.npmjs.org"
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
       - name: Install wasm-pack
         run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
-      - name: Compile
-        run: wasm-pack build --release --features=${{ matrix.features }} --target=${{ matrix.platform.wasm-target }}
+      - name: Build WASM with ${{ matrix.features }} feature
+        run: wasm-pack build --release --features=${{ matrix.features }} --target=${{ matrix.platform.wasm-target }} --out-dir pkg-${{ matrix.features }}
 
-      - name: Publish to npm
+      - name: Update package.json for ${{ matrix.features }} feature
         run: |
-          if npx can-npm-publish --verbose pkg; then
-            wasm-pack publish --access public --target ${{ matrix.platform.wasm-target }}
+          cd pkg-${{ matrix.features }}
+          jq '.name = "lindera-wasm-${{ matrix.features }}" | .description = "Lindera WASM with ${{ matrix.features }}"' package.json > package.json.tmp
+          mv package.json.tmp package.json
+
+      - name: Install npm dependencies
+        run: |
+          cd pkg-${{ matrix.features }}
+          pnpm install
+
+      - name: Publish lindera-wasm-${{ matrix.features }} to npm
+        run: |
+          cd pkg-${{ matrix.features }}
+          if npx can-npm-publish --verbose .; then
+            pnpm publish --no-git-checks --access public
           else
-            echo "wasm-pack publish skipped"
+            echo "pnpm publish skipped"
           fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
