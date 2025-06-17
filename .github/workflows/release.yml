@@ -64,32 +64,34 @@ jobs:
         run: wasm-pack test ${{ matrix.platform.test-runner }}
 
   build-and-publish-npm:
-    name: Build and Publish to npm
-    needs: [test]
+    needs: [format, test]
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        platform:
-          - runner: ubuntu-latest
-            target: x86_64-unknown-linux-gnu
-            wasm-target: bundler
-        toolchain: [stable]
-        features: [ipadic, unidic, ko-dic, cc-cedict, cjk]
-    runs-on: ${{ matrix.platform.runner }}
+        include:
+          - features: "ipadic"
+            package_name: "lindera-wasm-ipadic"
+            package_description: "Lindera WASM with Japanese dictionary (IPADIC)"
+          - features: "unidic"
+            package_name: "lindera-wasm-unidic"
+            package_description: "Lindera WASM with Japanese dictionary (UniDic)"
+          - features: "ko-dic"
+            package_name: "lindera-wasm-ko-dic"
+            package_description: "Lindera WASM with Korean dictionary (ko-dic)"
+          - features: "cc-cedict"
+            package_name: "lindera-wasm-cc-cedict"
+            package_description: "Lindera WASM with Chinese dictionary (CC-CEDICT)"
+          - features: "cjk"
+            package_name: "lindera-wasm"
+            package_description: "Lindera WASM with CJK dictionaries (IPADIC, ko-dic, CC-CEDICT)"
+
     steps:
-      - name: Run checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Install toolchain
-        uses: dtolnay/rust-toolchain@v1
-        with:
-          toolchain: ${{ matrix.toolchain }}
-          target: ${{ matrix.platform.target }}
-          components: rustfmt, clippy
-
-      - name: Use Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22.x
+          node-version: 20
           registry-url: "https://registry.npmjs.org"
 
       - name: Setup pnpm
@@ -100,30 +102,26 @@ jobs:
       - name: Install wasm-pack
         run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
-      - name: Build WASM with ${{ matrix.features }} feature
-        run: wasm-pack build --release --features=${{ matrix.features }} --target=${{ matrix.platform.wasm-target }} --out-dir pkg-${{ matrix.features }}
+      - name: Build WASM for ${{ matrix.package_name }}
+        run: wasm-pack build --target web --out-dir pkg-${{ matrix.features }} --features ${{ matrix.features }}
 
-      - name: Update package.json for ${{ matrix.features }} feature
+      - name: Update package.json for ${{ matrix.package_name }}
         run: |
           cd pkg-${{ matrix.features }}
-          jq '.name = "lindera-wasm-${{ matrix.features }}" | .description = "Lindera WASM with ${{ matrix.features }}"' package.json > package.json.tmp
+          jq '.name = "${{ matrix.package_name }}" | .description = "${{ matrix.package_description }}"' package.json > package.json.tmp
           mv package.json.tmp package.json
 
-      - name: Install npm dependencies
+      - name: Install npm dependencies for ${{ matrix.package_name }}
         run: |
           cd pkg-${{ matrix.features }}
           pnpm install
 
-      - name: Publish lindera-wasm-${{ matrix.features }} to npm
+      - name: Publish ${{ matrix.package_name }} to npm
         run: |
           cd pkg-${{ matrix.features }}
-          if npx can-npm-publish --verbose .; then
-            pnpm publish --no-git-checks --access public
-          else
-            echo "pnpm publish skipped"
-          fi
+          pnpm publish --no-git-checks
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   create-release:
     name: Create GitHub Release
