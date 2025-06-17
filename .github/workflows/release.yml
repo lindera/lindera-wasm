@@ -228,5 +228,7 @@ jobs:
           if echo ${LINDERA_WASM_VERSIONS} | grep ${LINDERA_WASM_VERSION} >/dev/null; then
             echo "lindera-wasm ${LINDERA_WASM_VERSION} has already published"
           else
-            cargo publish --token ${{ secrets.CRATES_TOKEN }}
+            cargo publish
           fi
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CRATES_TOKEN }}
