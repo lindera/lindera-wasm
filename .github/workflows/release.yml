@@ -68,20 +68,23 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        include:
-          - features: "ipadic"
+        features:
+          - value: "ipadic"
             package_name: "lindera-wasm-ipadic"
             package_description: "Lindera WASM with Japanese dictionary (IPADIC)"
-          - features: "unidic"
+          - value: "ipadic-neologd"
+            package_name: "lindera-wasm-ipadic-neologd"
+            package_description: "Lindera WASM with Japanese dictionary (IPADIC-NEologd)"
+          - value: "unidic"
             package_name: "lindera-wasm-unidic"
             package_description: "Lindera WASM with Japanese dictionary (UniDic)"
-          - features: "ko-dic"
+          - value: "ko-dic"
             package_name: "lindera-wasm-ko-dic"
             package_description: "Lindera WASM with Korean dictionary (ko-dic)"
-          - features: "cc-cedict"
+          - value: "cc-cedict"
             package_name: "lindera-wasm-cc-cedict"
             package_description: "Lindera WASM with Chinese dictionary (CC-CEDICT)"
-          - features: "cjk"
+          - value: "cjk"
             package_name: "lindera-wasm"
             package_description: "Lindera WASM with CJK dictionaries (IPADIC, ko-dic, CC-CEDICT)"
 
@@ -102,23 +105,23 @@ jobs:
       - name: Install wasm-pack
         run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
-      - name: Build WASM for ${{ matrix.package_name }}
-        run: wasm-pack build --target web --out-dir pkg-${{ matrix.features }} --features ${{ matrix.features }}
+      - name: Build WASM for ${{ matrix.features.package_name }}
+        run: wasm-pack build --target web --out-dir pkg-${{ matrix.features.value }} --features ${{ matrix.features.value }}
 
-      - name: Update package.json for ${{ matrix.package_name }}
+      - name: Update package.json for ${{ matrix.features.package_name }}
         run: |
-          cd pkg-${{ matrix.features }}
-          jq '.name = "${{ matrix.package_name }}" | .description = "${{ matrix.package_description }}"' package.json > package.json.tmp
+          cd pkg-${{ matrix.features.value }}
+          jq '.name = "${{ matrix.features.package_name }}" | .description = "${{ matrix.features.package_description }}"' package.json > package.json.tmp
           mv package.json.tmp package.json
 
-      - name: Install npm dependencies for ${{ matrix.package_name }}
+      - name: Install npm dependencies for ${{ matrix.features.package_name }}
         run: |
-          cd pkg-${{ matrix.features }}
+          cd pkg-${{ matrix.features.value }}
           pnpm install
 
-      - name: Publish ${{ matrix.package_name }} to npm
+      - name: Publish ${{ matrix.features.package_name }} to npm
         run: |
-          cd pkg-${{ matrix.features }}
+          cd pkg-${{ matrix.features.value }}
           pnpm publish --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
