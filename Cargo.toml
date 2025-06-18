@@ -1,6 +1,6 @@
 [package]
 name = "lindera-wasm"
-version = "0.43.6"
+version = "0.43.7"
 edition = "2021"
 description = "A morphological analysis library for WebAssembly."
 documentation = "https://docs.rs/lindera-wasm"

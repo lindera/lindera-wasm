@@ -165,7 +165,7 @@ jobs:
         features: [ipadic]
     runs-on: ${{ matrix.platform.runner }}
     permissions:
-      contents: read
+      contents: write
       pages: write
       id-token: write
     steps:
