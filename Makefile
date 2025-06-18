@@ -16,7 +16,7 @@ test: ## Test the project
 	wasm-pack test --node
 
 build: ## Build the project
-	wasm-pack build --release --features=cjk --target=bundler
+	wasm-pack build --release --features=cjk,compress --target=bundler
 
 publish: ## Publish the project
 	wasm-pack publish --access=public --target=bundler

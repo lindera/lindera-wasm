@@ -1,6 +1,6 @@
 [package]
 name = "lindera-wasm"
-version = "0.43.5"
+version = "0.43.6"
 edition = "2021"
 description = "A morphological analysis library for WebAssembly."
 documentation = "https://docs.rs/lindera-wasm"
@@ -17,19 +17,15 @@ crate-type = ["cdylib"]
 [features]
 default = ["cjk"] # No directories included
 ipadic = ["lindera/ipadic"] # Include IPADIC dictionary (Japanese)
-ipadic-neologd = [
-    "lindera/ipadic-neologd",
-] # Include IPADIC NEologd dictionary (Japanese)
 unidic = ["lindera/unidic"] # Include UniDic dictionary (Japanese)
 ko-dic = ["lindera/ko-dic"] # Include ko-dic dictionary (Korean)
 cc-cedict = ["lindera/cc-cedict"] # Include CC-CEDICT dictionary (Chinese)
-compress = ["lindera/compress"] # Compress dictionaries
 cjk = [
     "ipadic",
     "ko-dic",
     "cc-cedict",
-    "compress",
-] # Include IPADIC dictionary (Japanese), ko-dic dictionary (Korean), CC-CEDICT dictionary (Chinese), and compress dictionaries
+] # Include IPADIC dictionary (Japanese), ko-dic dictionary (Korean), CC-CEDICT dictionary (Chinese)
+compress = ["lindera/compress"] # Compress dictionaries
 
 [dependencies]
 once_cell = "1.21.3"
