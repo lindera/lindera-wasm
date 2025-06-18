@@ -124,7 +124,7 @@ jobs:
           cd pkg-${{ matrix.features.value }}
           pnpm publish --no-git-checks
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
 
   create-release:
     name: Create GitHub Release
