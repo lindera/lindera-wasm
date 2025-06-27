@@ -5,6 +5,8 @@ VERSION := $(shell cargo metadata --no-deps --format-version=1 | jq -r '.package
 clean: ## Clean the project
 	cargo clean
 	rm -rf pkg
+	rm -rf lindera-wasm/dist
+	rm -rf lindera-wasm/node_modules
 
 format: ## Format the project
 	cargo fmt
@@ -13,10 +15,10 @@ lint: ## Lint the project
 	cargo clippy --features=cjk
 
 test: ## Test the project
-	wasm-pack test --node
+	wasm-pack test --node --features=cjk,compress 
 
 build: ## Build the project
-	wasm-pack build --release --features=ipadic,compress --target=bundler
+	wasm-pack build --release --features=cjk,compress --target=bundler
 
 publish: ## Publish the project
 	wasm-pack publish --access=public --target=bundler

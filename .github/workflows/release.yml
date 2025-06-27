@@ -63,7 +63,7 @@ jobs:
         run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
       - name: Run test
-        run: wasm-pack test ${{ matrix.platform.test-runner }}
+        run: wasm-pack test ${{ matrix.platform.test-runner }} --features "${{ matrix.features }},compress"
 
   build-and-publish-npm:
     needs: [format, test]
