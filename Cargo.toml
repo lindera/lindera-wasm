@@ -15,7 +15,7 @@ license = "MIT"
 crate-type = ["cdylib"]
 
 [features]
-default = ["cjk"] # No directories included
+default = [] # No directories included
 ipadic = ["lindera/ipadic"] # Include IPADIC dictionary (Japanese)
 unidic = ["lindera/unidic"] # Include UniDic dictionary (Japanese)
 ko-dic = ["lindera/ko-dic"] # Include ko-dic dictionary (Korean)

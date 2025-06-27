@@ -5,6 +5,8 @@ VERSION := $(shell cargo metadata --no-deps --format-version=1 | jq -r '.package
 clean: ## Clean the project
 	cargo clean
 	rm -rf pkg
+	rm -rf lindera-wasm/dist
+	rm -rf lindera-wasm/node_modules
 
 format: ## Format the project
 	cargo fmt
