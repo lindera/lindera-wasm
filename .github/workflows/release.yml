@@ -63,7 +63,7 @@ jobs:
         run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
       - name: Run test
-        run: wasm-pack test ${{ matrix.platform.test-runner }} --features "${{ matrix.features }},compress"
+        run: wasm-pack test ${{ matrix.platform.test-runner }} --features "${{ matrix.features }}"
 
   build-and-publish-npm:
     needs: [format, test]
@@ -105,7 +105,7 @@ jobs:
         run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
       - name: Build WASM for ${{ matrix.features.package_name }}
-        run: wasm-pack build --target web --out-dir pkg-${{ matrix.features.value }} --features "${{ matrix.features.value }},compress"
+        run: wasm-pack build --target web --out-dir pkg-${{ matrix.features.value }} --features "${{ matrix.features.value }}"
 
       - name: Update package.json for ${{ matrix.features.package_name }}
         run: |
@@ -188,7 +188,7 @@ jobs:
         run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
       - name: Compile
-        run: wasm-pack build --release --features="${{ matrix.features }},compress" --target=${{ matrix.platform.wasm-target }}
+        run: wasm-pack build --release --features="${{ matrix.features }}" --target=${{ matrix.platform.wasm-target }}
 
       - name: Build example application
         run: |
