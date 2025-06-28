@@ -772,9 +772,9 @@ dependencies = [
 
 [[package]]
 name = "lindera"
-version = "0.43.3"
+version = "0.44.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "877750979d709bb5fb2d616a2c9968301ead80147db2270c8f23d8239467f159"
+checksum = "c4571a7ee1ab7ff328076815a93fa39f24c7f4b0283aa4873a1b4e946831a9f9"
 dependencies = [
  "anyhow",
  "bincode",
@@ -802,9 +802,9 @@ dependencies = [
 
 [[package]]
 name = "lindera-cc-cedict"
-version = "0.43.3"
+version = "0.44.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4efb27e037efbd41fdce30e3771084a46040cdfdbec718425879f8aa7dfa16f2"
+checksum = "b985ab2e6625b868faa698b758f60369eca7d3c0581dce17ce67026ab78e1361"
 dependencies = [
  "bincode",
  "byteorder",
@@ -815,9 +815,9 @@ dependencies = [
 
 [[package]]
 name = "lindera-dictionary"
-version = "0.43.3"
+version = "0.44.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4cbb45e81527092e1af24c45bf068376df34faaa9f98d44a99ec59c7edfdb45a"
+checksum = "8bc18e1c58de0e5fe50ddf18f61ffb5a79e0f335d8c0be58c300985587e1be55"
 dependencies = [
  "anyhow",
  "bincode",
@@ -831,6 +831,7 @@ dependencies = [
  "glob",
  "log",
  "md5",
+ "memmap2",
  "once_cell",
  "rand",
  "reqwest",
@@ -843,9 +844,9 @@ dependencies = [
 
 [[package]]
 name = "lindera-ipadic"
-version = "0.43.3"
+version = "0.44.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "447887ebb06c9faf7e9b41c03b491ae3e12aca2c0e119a865b682863a1b538aa"
+checksum = "c715aae5daf41c83fbf481cd6936bd11fb864e85a46c19342425ec0f755ad457"
 dependencies = [
  "bincode",
  "byteorder",
@@ -856,9 +857,9 @@ dependencies = [
 
 [[package]]
 name = "lindera-ipadic-neologd"
-version = "0.43.3"
+version = "0.44.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8da7829c17dee5b1068f241c1989f83a2d98307ed5d3b87fcc91bd06b7a7b44e"
+checksum = "dc2731a2da34989fb9d5e5ba30c3ac50d0edf250ec123e276f880c7f1c331162"
 dependencies = [
  "bincode",
  "byteorder",
@@ -869,9 +870,9 @@ dependencies = [
 
 [[package]]
 name = "lindera-ko-dic"
-version = "0.43.3"
+version = "0.44.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8dc88354c6f8fbdeb7aa3d44673eb0ca03b7ad6e8d4edb62332604bb7806d17b"
+checksum = "30cc2ea7864f42f18353c79375032bc62b099f51be01515a627c2fc2b1321b3d"
 dependencies = [
  "bincode",
  "byteorder",
@@ -882,9 +883,9 @@ dependencies = [
 
 [[package]]
 name = "lindera-unidic"
-version = "0.43.3"
+version = "0.44.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4cf374587e0202193c73f443cb0ba0d34ff0013949b2355aeeeb0f840679681e"
+checksum = "d1d97a1ae1f27b98a5f15fd3a2fd1103e0e7f328891f63c223c530e4702075e6"
 dependencies = [
  "bincode",
  "byteorder",
@@ -895,7 +896,7 @@ dependencies = [
 
 [[package]]
 name = "lindera-wasm"
-version = "0.43.7"
+version = "0.44.0"
 dependencies = [
  "lindera",
  "once_cell",
@@ -932,15 +933,24 @@ checksum = "112b39cec0b298b6c1999fee3e31427f74f676e4cb9879ed1a121b43661a4154"
 
 [[package]]
 name = "md5"
-version = "0.7.0"
+version = "0.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "490cc448043f947bae3cbee9c203358d62dbee0db12107a74be5c30ccfd09771"
+checksum = "ae960838283323069879657ca3de837e9f7bbb4c7bf6ea7f1b290d5e9476d2e0"
 
 [[package]]
 name = "memchr"
 version = "2.7.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "78ca9ab1a0babb1e7d5695e3530886289c18cf2f87ec19a575a0abdce112e3a3"
+
+[[package]]
+name = "memmap2"
+version = "0.9.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fd3f7eed9d3848f8b98834af67102b720745c4ec028fcd0aa0239277e7de374f"
+dependencies = [
+ "libc",
+]
 
 [[package]]
 name = "minicov"

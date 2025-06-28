@@ -12,18 +12,19 @@ format: ## Format the project
 	cargo fmt
 
 lint: ## Lint the project
-	cargo clippy --features=cjk
+	cargo clippy --all-features
 
 test: ## Test the project
-	wasm-pack test --node --features=cjk,compress 
+	wasm-pack test --node --all-features
 
 build: ## Build the project
-	wasm-pack build --release --features=cjk,compress --target=bundler
+	wasm-pack build --release --all-features --target=bundler
 
 publish: ## Publish the project
 	wasm-pack publish --access=public --target=bundler
 
 build-example: ## Build the example application
+	wasm-pack build --release --features=ipadic --target=bundler && \
 	cd lindera-wasm && \
 	jq '.version = "$(VERSION)"' ./package.json > ./temp.json && mv ./temp.json ./package.json && \
 	npm install && \
