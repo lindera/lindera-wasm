@@ -2,7 +2,7 @@
 
 WebAssembly of Lindera
 
-![Screenshot 2024-12-25 143434](https://github.com/user-attachments/assets/a463bf2e-70be-492a-b13c-e5aff6581fc7)
+![Screenshot](https://github.com/user-attachments/assets/0cccbc5b-78b3-462c-acb6-18136129cf04)
 
 ## Demo Application
 
