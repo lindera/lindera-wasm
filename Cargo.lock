@@ -551,7 +551,7 @@ dependencies = [
  "libc",
  "percent-encoding",
  "pin-project-lite",
- "socket2",
+ "socket2 0.5.10",
  "tokio",
  "tower-service",
  "tracing",
@@ -713,6 +713,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "io-uring"
+version = "0.7.9"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d93587f37623a1a17d94ef2bc9ada592f5465fe7732084ab7beefabe5c77c0c4"
+dependencies = [
+ "bitflags 2.6.0",
+ "cfg-if",
+ "libc",
+]
+
+[[package]]
 name = "ipnet"
 version = "2.10.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -755,9 +766,9 @@ dependencies = [
 
 [[package]]
 name = "libc"
-version = "0.2.171"
+version = "0.2.174"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c19937216e9d3aa9956d9bb8dfc0b0c8beb6058fc4f7a4dc4d850edf86a237d6"
+checksum = "1171693293099992e19cddea4e8b849964e9846f4acee11b3948bcc337be8776"
 
 [[package]]
 name = "libredox"
@@ -772,9 +783,9 @@ dependencies = [
 
 [[package]]
 name = "lindera"
-version = "0.44.1"
+version = "0.45.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "50aba4ef41052280722f2120f65606b9218e8718032a3c752b953c4d8091f02e"
+checksum = "aca3e1904b76c5b60d91b8a2676e966a2880eb8c50d5603a9cb41503f8ee4d43"
 dependencies = [
  "anyhow",
  "bincode",
@@ -802,22 +813,23 @@ dependencies = [
 
 [[package]]
 name = "lindera-cc-cedict"
-version = "0.44.1"
+version = "0.45.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5d77e7a0830fd60f23828ad914439997288c1d2cdd9e269be67f967c27b56350"
+checksum = "4200a99d770f6dc5d01527d1f406df56820961b106bd8ff1e04802a09f28611b"
 dependencies = [
  "bincode",
  "byteorder",
  "lindera-dictionary",
  "once_cell",
+ "serde_json",
  "tokio",
 ]
 
 [[package]]
 name = "lindera-dictionary"
-version = "0.44.1"
+version = "0.45.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "489cc70922782af3fd397c0e130846caefe1c15b27c2211aac8f88a9f4590aaf"
+checksum = "917dd3e34c5961035ce116b12bb4f42d20d85d1a1ebbcb0c5f2597165138868a"
 dependencies = [
  "anyhow",
  "bincode",
@@ -836,6 +848,9 @@ dependencies = [
  "rand",
  "reqwest",
  "serde",
+ "serde_json",
+ "strum",
+ "strum_macros",
  "tar",
  "thiserror",
  "tokio",
@@ -844,53 +859,57 @@ dependencies = [
 
 [[package]]
 name = "lindera-ipadic"
-version = "0.44.1"
+version = "0.45.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "78870521431dfaf0f94ddd3484fa08367e9d354fc8c708572f2f00007225ddfa"
+checksum = "8d039f93ad6e67fad579233a568e9901c84e68f1b5f3292bed57b2977dea65cd"
 dependencies = [
  "bincode",
  "byteorder",
  "lindera-dictionary",
  "once_cell",
+ "serde_json",
  "tokio",
 ]
 
 [[package]]
 name = "lindera-ipadic-neologd"
-version = "0.44.1"
+version = "0.45.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "abcb3dc3056e5c683e12c2c5e8d40076f7ecfd7bd46f5fc0e4ae9e58152b5d85"
+checksum = "8a3bc58fce8c821896a004ace0106ecb392eb46f8307b70b92583fb4c1572253"
 dependencies = [
  "bincode",
  "byteorder",
  "lindera-dictionary",
  "once_cell",
+ "serde_json",
  "tokio",
 ]
 
 [[package]]
 name = "lindera-ko-dic"
-version = "0.44.1"
+version = "0.45.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e99316158bab14f0256d912055521ca784f76c63e7460db8a74775c5dc1f8bc2"
+checksum = "bd9515d44fae6d3d19b57d75df0ecfc0b97fee2810ea97d07838d51990a2636f"
 dependencies = [
  "bincode",
  "byteorder",
  "lindera-dictionary",
  "once_cell",
+ "serde_json",
  "tokio",
 ]
 
 [[package]]
 name = "lindera-unidic"
-version = "0.44.1"
+version = "0.45.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "52672945166c14276bbba25e4ec79d7e126db1b503c0a6aa07ffc0141ae15cfa"
+checksum = "8a0618885f3fa3c67e5061535b0f3a0c6f732b27b14d156ec566ec9556deec17"
 dependencies = [
  "bincode",
  "byteorder",
  "lindera-dictionary",
  "once_cell",
+ "serde_json",
  "tokio",
 ]
 
@@ -945,9 +964,9 @@ checksum = "78ca9ab1a0babb1e7d5695e3530886289c18cf2f87ec19a575a0abdce112e3a3"
 
 [[package]]
 name = "memmap2"
-version = "0.9.5"
+version = "0.9.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fd3f7eed9d3848f8b98834af67102b720745c4ec028fcd0aa0239277e7de374f"
+checksum = "483758ad303d734cec05e5c12b41d7e93e6a6390c5e9dae6bdeb7c1259012d28"
 dependencies = [
  "libc",
 ]
@@ -1046,7 +1065,7 @@ dependencies = [
  "quinn-udp",
  "rustc-hash",
  "rustls",
- "socket2",
+ "socket2 0.5.10",
  "thiserror",
  "tokio",
  "tracing",
@@ -1083,7 +1102,7 @@ dependencies = [
  "cfg_aliases",
  "libc",
  "once_cell",
- "socket2",
+ "socket2 0.5.10",
  "tracing",
  "windows-sys 0.59.0",
 ]
@@ -1105,9 +1124,9 @@ checksum = "74765f6d916ee2faa39bc8e68e4f3ed8949b48cccdac59983d287a7cb71ce9c5"
 
 [[package]]
 name = "rand"
-version = "0.9.1"
+version = "0.9.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9fbfd9d094a40bf3ae768db9361049ace4c0e04a4fd6b359518bd7b73a73dd97"
+checksum = "6db2770f06117d490610c7488547d543617b21bfa07796d7a12f6f1bd53850d1"
 dependencies = [
  "rand_chacha",
  "rand_core",
@@ -1336,9 +1355,9 @@ dependencies = [
 
 [[package]]
 name = "serde_json"
-version = "1.0.140"
+version = "1.0.141"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "20068b6e96dc6c9bd23e01df8827e6c7e1f2fddd43c21810382803c136b99373"
+checksum = "30b9eff21ebe718216c6ec64e1d9ac57087aad11efc64e32002bce4a0d4c03d3"
 dependencies = [
  "itoa",
  "memchr",
@@ -1403,6 +1422,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "socket2"
+version = "0.6.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "233504af464074f9d066d7b5416c5f9b894a5862a6506e306f7b816cdd6f1807"
+dependencies = [
+ "libc",
+ "windows-sys 0.59.0",
+]
+
+[[package]]
 name = "spin"
 version = "0.9.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1422,23 +1451,22 @@ checksum = "7da8b5736845d9f2fcb837ea5d9e2628564b3b043a70948a3f0b778838c5fb4f"
 
 [[package]]
 name = "strum"
-version = "0.27.1"
+version = "0.27.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f64def088c51c9510a8579e3c5d67c65349dcf755e5479ad3d010aa6454e2c32"
+checksum = "af23d6f6c1a224baef9d3f61e287d2761385a5b88fdab4eb4c6f11aeb54c4bcf"
 dependencies = [
  "strum_macros",
 ]
 
 [[package]]
 name = "strum_macros"
-version = "0.27.1"
+version = "0.27.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c77a8c5abcaf0f9ce05d62342b7d298c346515365c36b673df4ebe3ced01fde8"
+checksum = "7695ce3845ea4b33927c055a39dc438a45b059f7c1b3d91d38d10355fb8cbca7"
 dependencies = [
  "heck",
  "proc-macro2",
  "quote",
- "rustversion",
  "syn",
 ]
 
@@ -1537,18 +1565,20 @@ checksum = "1f3ccbac311fea05f86f61904b462b55fb3df8837a366dfc601a0161d0532f20"
 
 [[package]]
 name = "tokio"
-version = "1.45.1"
+version = "1.47.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "75ef51a33ef1da925cea3e4eb122833cb377c61439ca401b770f54902b806779"
+checksum = "43864ed400b6043a4757a25c7a64a8efde741aed79a056a2fb348a406701bb35"
 dependencies = [
  "backtrace",
  "bytes",
+ "io-uring",
  "libc",
  "mio",
  "pin-project-lite",
- "socket2",
+ "slab",
+ "socket2 0.6.0",
  "tokio-macros",
- "windows-sys 0.52.0",
+ "windows-sys 0.59.0",
 ]
 
 [[package]]
