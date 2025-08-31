@@ -1,10 +1,8 @@
-use std::path::Path;
 use std::str::FromStr;
 
 use serde_json::Value;
 use wasm_bindgen::prelude::*;
 
-use lindera::dictionary::DictionaryKind;
 use lindera::mode::Mode;
 use lindera::token::Token;
 use lindera::tokenizer::{
@@ -60,33 +58,16 @@ impl TokenizerBuilder {
         Ok(())
     }
 
-    #[wasm_bindgen(js_name = "setDictionaryKind")]
-    pub fn set_dictionary_kind(&mut self, kind: &str) -> Result<(), JsValue> {
-        let k = DictionaryKind::from_str(kind).map_err(|e| JsValue::from_str(&e.to_string()))?;
-        self.inner.set_segmenter_dictionary_kind(&k);
+    #[wasm_bindgen(js_name = "setDictionary")]
+    pub fn set_dictionary(&mut self, uri: &str) -> Result<(), JsValue> {
+        self.inner.set_segmenter_dictionary(uri);
 
         Ok(())
     }
 
-    #[wasm_bindgen(js_name = "setDictionaryPath")]
-    pub fn set_dictionary_path(&mut self, path: &str) -> Result<(), JsValue> {
-        self.inner.set_segmenter_dictionary_path(Path::new(path));
-
-        Ok(())
-    }
-
-    #[wasm_bindgen(js_name = "setUserDictionaryPath")]
-    pub fn set_user_dictionary_path(&mut self, path: &str) -> Result<(), JsValue> {
-        self.inner
-            .set_segmenter_user_dictionary_path(Path::new(path));
-
-        Ok(())
-    }
-
-    #[wasm_bindgen(js_name = "setUserDictionaryKind")]
-    pub fn set_user_dictionary_kind(&mut self, kind: &str) -> Result<(), JsValue> {
-        let k = DictionaryKind::from_str(kind).map_err(|e| JsValue::from_str(&e.to_string()))?;
-        self.inner.set_segmenter_user_dictionary_kind(&k);
+    #[wasm_bindgen(js_name = "setUserDictionary")]
+    pub fn set_user_dictionary(&mut self, uri: &str) -> Result<(), JsValue> {
+        self.inner.set_segmenter_user_dictionary(uri);
 
         Ok(())
     }
@@ -150,7 +131,7 @@ mod tests {
 
         let mut builder = TokenizerBuilder::new().unwrap();
         builder.set_mode("normal").unwrap();
-        builder.set_dictionary_kind("ipadic").unwrap();
+        builder.set_dictionary("embedded://ipadic").unwrap();
 
         let tokenizer = builder.build().unwrap();
 

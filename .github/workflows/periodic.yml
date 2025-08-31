@@ -14,7 +14,7 @@ jobs:
           - runner: ubuntu-latest
             target: x86_64
         toolchain: [stable]
-        features: [cjk]
+        features: [embedded-cjk]
     runs-on: ${{ matrix.platform.runner }}
     steps:
       - name: Run checkout
@@ -39,7 +39,7 @@ jobs:
             target: x86_64-unknown-linux-gnu
             test-runner: --node
         toolchain: [stable]
-        features: [cjk]
+        features: [embedded-cjk]
     runs-on: ${{ matrix.platform.runner }}
     steps:
       - name: Run checkout

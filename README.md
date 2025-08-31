@@ -10,7 +10,20 @@ WebAssembly of Lindera
 
 ## npm
 
-- <https://www.npmjs.com/package/lindera-wasm>
+- <https://www.npmjs.com/package/lindera-wasm>  
+Lindera WASM with CJK dictionaries (IPADIC, ko-dic, CC-CEDICT)
+
+- <https://www.npmjs.com/package/lindera-wasm-ipadic>  
+Lindera WASM with Japanese dictionary (IPADIC)
+
+- <https://www.npmjs.com/package/lindera-wasm-unidic>  
+Lindera WASM with Japanese dictionary (UniDic)
+
+- <https://www.npmjs.com/package/lindera-wasm-ko-dic>  
+Lindera WASM with Korean dictionary (ko-dic)
+
+- <https://www.npmjs.com/package/lindera-wasm-cc-cedict>  
+Lindera WASM with Chinese dictionary (CC-CEDICT)
 
 ## Install project dependencies
 

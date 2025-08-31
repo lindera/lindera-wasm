@@ -15,9 +15,9 @@ let tokenizer = null;
 try {
     // Create a TokenizerBuilder instance
     let builder = new TokenizerBuilder();
-    // Set the dictionary kind to "ipadic" (Japanese)
-    // You can also use "ko-dic" (Korean) or "cc-cedict" (Chinese) as the dictionary kind
-    builder.setDictionaryKind("ipadic");
+    // Set the dictionary to "ipadic" (Japanese)
+    // You can also use "ko-dic" (Korean) or "cc-cedict" (Chinese) as the dictionary
+    builder.setDictionary("embedded://ipadic");
 
     // Set the tokenizer mode to "normal"
     // You can also use "decompose" for decomposing the compound words into their components
