@@ -67,9 +67,17 @@ document.getElementById('runButton').addEventListener('click', () => {
     resultList.innerHTML = '';
 
     // Display the tokens
-    tokens.forEach(token => {
+    console.log('All tokens:', tokens); // Log the entire tokens array
+
+    tokens.forEach((token, index) => {
         const li = document.createElement('li');
-        li.textContent = token.get('text') + ' : ' + token.get('details').join(", "); // Display the text of the token
+        const pre = document.createElement('pre');
+
+        console.log(`Token ${index}:`, token); // Log each individual token object
+
+        pre.textContent = JSON.stringify(token, null, 2);
+        li.appendChild(pre);
+
         resultList.appendChild(li);
     });
 });
