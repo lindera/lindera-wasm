@@ -25,11 +25,65 @@ Lindera WASM with Korean dictionary (ko-dic)
 - <https://www.npmjs.com/package/lindera-wasm-cc-cedict>  
 Lindera WASM with Chinese dictionary (CC-CEDICT)
 
-## Install project dependencies
+## Usage
+init the wasm module before construct `TokenizerBuilder`:
+```ts
+import __wbg_init, { TokenizerBuilder } from 'lindera-wasm'
+
+__wbg_init.then(() => {
+    const builder = new TokenizerBuilder()
+    //...
+})
+```
+
+### for [Vite](https://vite.dev/) base project
+You should exclude this package in the `optimizeDeps`:
+```ts
+// vite.config.js
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  optimizeDeps: {
+    exclude: [
+      "lindera-wasm"
+    ]
+  },
+})
+```
+
+### for Browser extension development
+Set the `cors` config in vite.config.js
+```ts
+// vite.config.js
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  server: {
+    cors: {
+      origin: [
+        /chrome-extension:\/\//,
+      ],
+    },
+  },
+})
+```
+
+and set the `content_security_policy` to contains `wasm-unsafe-eval` in manifest.json:
+```json
+// manifest.json
+"content_security_policy": {
+	"extension_pages": "script-src 'self' 'wasm-unsafe-eval';"
+}
+```
+
+
+## Development
+
+### Install project dependencies
 
 - wasm-pack : <https://rustwasm.github.io/wasm-pack/installer/>
 
-## Setup repository
+### Setup repository
 
 ```shell
 # Clone lindera-py project repository
@@ -37,19 +91,19 @@ Lindera WASM with Chinese dictionary (CC-CEDICT)
 % cd lindera-wasm
 ```
 
-## Build project
+### Build project
 
 ```shell
 % wasm-pack build --release --features=cjk --target=bundler
 ```
 
-## Build example web application
+### Build example web application
 
 ```shell
 % cd lindera-wasm && npm install && npm run build && cp index.html dist/index.html
 ```
 
-## Run example web application
+### Run example web application
 
 ```shell
 % cd lindera-wasm && npm run start
