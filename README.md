@@ -2,7 +2,8 @@
 
 WebAssembly of Lindera
 
-![Screenshot](https://github.com/user-attachments/assets/0cccbc5b-78b3-462c-acb6-18136129cf04)
+<img width="1599" height="1178" alt="Screenshot from 2025-09-13 23-05-49" src="https://github.com/user-attachments/assets/a6ca165a-825c-4260-ba52-d76cd262a21f" />
+
 
 ## Demo Application
 
