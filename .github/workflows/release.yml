@@ -134,7 +134,7 @@ jobs:
         run: |
           cd lindera-wasm
           jq '.version = "${{ github.ref_name }}"' ./package.json > ./temp.json && mv ./temp.json ./package.json
-          npm ci
+          npm install
           npm run build
           cp index.html dist/index.html
           cd ..
