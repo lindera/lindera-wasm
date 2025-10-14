@@ -349,9 +349,9 @@ dependencies = [
 
 [[package]]
 name = "flate2"
-version = "1.1.2"
+version = "1.1.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4a3d7db9596fecd151c5f638c0ee5d5bd487b6e0ea232e5dc96d5250f6f94b1d"
+checksum = "dc5a4e564e38c699f2880d3fda590bedc2e69f3f84cd48b457bd892ce61d0aa9"
 dependencies = [
  "crc32fast",
  "miniz_oxide",
@@ -789,9 +789,9 @@ dependencies = [
 
 [[package]]
 name = "lindera"
-version = "1.3.2"
+version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3a7a4c5973b778eb6cfe2b78e33840c32601e7fddcc9379d764171ea10600337"
+checksum = "737cdbd7df815d8cf5982bc9bbd30344c4964d041f8067c0ab6fbc3db0c924e4"
 dependencies = [
  "anyhow",
  "bincode",
@@ -821,9 +821,9 @@ dependencies = [
 
 [[package]]
 name = "lindera-cc-cedict"
-version = "1.3.2"
+version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a3f9ca6f3c2d0dd3493eca7917d712a9b2a6ea0a60f0e518d3c5710eee0ab719"
+checksum = "84620141298ea1060835800f116db105596f39ba5fe10bce397133e6cdd981d9"
 dependencies = [
  "anyhow",
  "bincode",
@@ -837,9 +837,9 @@ dependencies = [
 
 [[package]]
 name = "lindera-dictionary"
-version = "1.3.2"
+version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "88c7e47e42a6831f6a12eca3b91c4ef2c9ab2425c6d6c5ffb51abcd0fec2749e"
+checksum = "609fd8f72a2ffc1b2a71e9bdb73f723d3c0f676255c37a14b3f4f02981c59437"
 dependencies = [
  "anyhow",
  "bincode",
@@ -871,9 +871,9 @@ dependencies = [
 
 [[package]]
 name = "lindera-ipadic"
-version = "1.3.2"
+version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ddc56f00c12483d36cbfd0d5fd51f040a40729cbfe9976da47a77795c2af8220"
+checksum = "292173f5cea3aa09af01f1b8e163f66e6be3fef7b81466e0efaae3314df56c58"
 dependencies = [
  "anyhow",
  "bincode",
@@ -887,9 +887,9 @@ dependencies = [
 
 [[package]]
 name = "lindera-ipadic-neologd"
-version = "1.3.2"
+version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "211486971de259f1cb3aa9539f08df6bea7a88bf82280f79614717f3b254899a"
+checksum = "7bac14263d5d3b0ac7674c0d2321b987230df96f5b3df59d2015491598d6102d"
 dependencies = [
  "anyhow",
  "bincode",
@@ -903,9 +903,9 @@ dependencies = [
 
 [[package]]
 name = "lindera-ko-dic"
-version = "1.3.2"
+version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "41ccead1eb20dfbcbd0ea45e34a26a32257dd81b5fcd10fb1fb17cf3d78c856f"
+checksum = "5c1e5bde25a381e689466669f3a6e14e05b55a3fa6b60b98701ae12ca6fba330"
 dependencies = [
  "anyhow",
  "bincode",
@@ -919,9 +919,9 @@ dependencies = [
 
 [[package]]
 name = "lindera-unidic"
-version = "1.3.2"
+version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "07d87dd63970ac24bc41024900101366c2bf9f54e5dbd2c3139d2bf0342a1db8"
+checksum = "139acd137f64722a1f754f4ed8e824c59ea9b4a0547633444ec94720ebd1efc9"
 dependencies = [
  "anyhow",
  "bincode",
@@ -1009,6 +1009,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8e3e04debbb59698c15bacbb6d93584a8c0ca9cc3213cb423d31f760d8843ce5"
 dependencies = [
  "adler2",
+ "simd-adler32",
 ]
 
 [[package]]
@@ -1193,9 +1194,9 @@ dependencies = [
 
 [[package]]
 name = "regex"
-version = "1.11.3"
+version = "1.12.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8b5288124840bee7b386bc413c487869b360b2b4ec421ea56425128692f2a82c"
+checksum = "843bc0191f75f3e22651ae5f1e72939ab2f72a4bc30fa80a066bd66edefc24d4"
 dependencies = [
  "aho-corasick",
  "memchr",
@@ -1205,9 +1206,9 @@ dependencies = [
 
 [[package]]
 name = "regex-automata"
-version = "0.4.11"
+version = "0.4.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "833eb9ce86d40ef33cb1306d8accf7bc8ec2bfea4355cbdebb3df68b40925cad"
+checksum = "5276caf25ac86c8d810222b3dbb938e512c55c6831a10f3e6ed1c93b84041f1c"
 dependencies = [
  "aho-corasick",
  "memchr",
@@ -1222,9 +1223,9 @@ checksum = "2b15c43186be67a4fd63bee50d0303afffcef381492ebe2c5d87f324e1b8815c"
 
 [[package]]
 name = "reqwest"
-version = "0.12.23"
+version = "0.12.24"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d429f34c8092b2d42c7c93cec323bb4adeb7c67698f70839adec842ec10c7ceb"
+checksum = "9d0946410b9f7b082a427e4ef5c8ff541a88b357bc6c637c40db3a68ac70a36f"
 dependencies = [
  "base64",
  "bytes",
@@ -1437,6 +1438,12 @@ name = "shlex"
 version = "1.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0fda2ff0d084019ba4d7c6f371c95d8fd75ce3524c3cb8fb653a3023f6323e64"
+
+[[package]]
+name = "simd-adler32"
+version = "0.3.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d66dc143e6b11c1eddc06d5c423cfc97062865baf299914ab64caa38182078fe"
 
 [[package]]
 name = "slab"
