@@ -12,36 +12,36 @@ WebAssembly of Lindera
 
 ### Web
 
-- <https://www.npmjs.com/package/lindera-wasm-web-cjk>
+- <https://www.npmjs.com/package/lindera-wasm-web-cjk>  
 Lindera WASM with CJK dictionaries (IPADIC, ko-dic, CC-CEDICT) for Web
 
-- <https://www.npmjs.com/package/lindera-wasm-web-ipadic>
+- <https://www.npmjs.com/package/lindera-wasm-web-ipadic>  
 Lindera WASM with Japanese dictionary (IPADIC) for Web
 
-- <https://www.npmjs.com/package/lindera-wasm-web-unidic>
+- <https://www.npmjs.com/package/lindera-wasm-web-unidic>  
 Lindera WASM with Japanese dictionary (UniDic) for Web
 
-- <https://www.npmjs.com/package/lindera-wasm-web-ko-dic>
+- <https://www.npmjs.com/package/lindera-wasm-web-ko-dic>  
 Lindera WASM with Korean dictionary (ko-dic) for Web
 
-- <https://www.npmjs.com/package/lindera-wasm-web-cc-cedict>
+- <https://www.npmjs.com/package/lindera-wasm-web-cc-cedict>  
 Lindera WASM with Chinese dictionary (CC-CEDICT) for Web
 
 ### Node.js
 
-- <https://www.npmjs.com/package/lindera-wasm-nodejs-cjk>
+- <https://www.npmjs.com/package/lindera-wasm-nodejs-cjk>  
 Lindera WASM with CJK dictionaries (IPADIC, ko-dic, CC-CEDICT) for Node.js
 
-- <https://www.npmjs.com/package/lindera-wasm-nodejs-ipadic>
+- <https://www.npmjs.com/package/lindera-wasm-nodejs-ipadic>  
 Lindera WASM with Japanese dictionary (IPADIC) for Node.js
 
-- <https://www.npmjs.com/package/lindera-wasm-nodejs-unidic>
+- <https://www.npmjs.com/package/lindera-wasm-nodejs-unidic>  
 Lindera WASM with Japanese dictionary (UniDic) for Node.js
 
-- <https://www.npmjs.com/package/lindera-wasm-nodejs-ko-dic>
+- <https://www.npmjs.com/package/lindera-wasm-nodejs-ko-dic>  
 Lindera WASM with Korean dictionary (ko-dic) for Node.js
 
-- <https://www.npmjs.com/package/lindera-wasm-nodejs-cc-cedict>
+- <https://www.npmjs.com/package/lindera-wasm-nodejs-cc-cedict>  
 Lindera WASM with Chinese dictionary (CC-CEDICT) for Node.js
 
 ## Usage
