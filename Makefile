@@ -18,13 +18,13 @@ test: ## Test the project
 	wasm-pack test --node --all-features
 
 build: ## Build the project
-	wasm-pack build --release --all-features --target=bundler
+	wasm-pack build --release --all-features --target=web
 
 publish: ## Publish the project
-	wasm-pack publish --access=public --target=bundler
+	wasm-pack publish --access=public --target=web
 
 build-example: ## Build the example application
-	wasm-pack build --release --features=embedded-ipadic --target=bundler && \
+	wasm-pack build --release --features=embedded-ipadic --target=web && \
 	cd lindera-wasm && \
 	jq '.version = "$(VERSION)"' ./package.json > ./temp.json && mv ./temp.json ./package.json && \
 	npm install && \

@@ -180,21 +180,26 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        target:
+          - value: "web"
+            name: "web"
+          - value: "nodejs"
+            name: "nodejs"
         features:
           - value: "embedded-ipadic"
-            package_name: "lindera-wasm-ipadic"
+            name: "ipadic"
             package_description: "Lindera WASM with Japanese dictionary (IPADIC)"
           - value: "embedded-unidic"
-            package_name: "lindera-wasm-unidic"
+            name: "unidic"
             package_description: "Lindera WASM with Japanese dictionary (UniDic)"
           - value: "embedded-ko-dic"
-            package_name: "lindera-wasm-ko-dic"
+            name: "ko-dic"
             package_description: "Lindera WASM with Korean dictionary (ko-dic)"
           - value: "embedded-cc-cedict"
-            package_name: "lindera-wasm-cc-cedict"
+            name: "cc-cedict"
             package_description: "Lindera WASM with Chinese dictionary (CC-CEDICT)"
           - value: "embedded-cjk"
-            package_name: "lindera-wasm"
+            name: "cjk"
             package_description: "Lindera WASM with CJK dictionaries (IPADIC, ko-dic, CC-CEDICT)"
 
     steps:
@@ -214,23 +219,23 @@ jobs:
       - name: Install wasm-pack
         run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
-      - name: Build WASM for ${{ matrix.features.package_name }}
-        run: wasm-pack build --target web --out-dir pkg-${{ matrix.features.value }} --features "${{ matrix.features.value }}"
+      - name: Build WASM for lindera-wasm-${{ matrix.target.name }}-${{ matrix.features.name }}
+        run: wasm-pack build --target ${{ matrix.target.value }} --out-dir pkg-${{ matrix.target.value }}-${{ matrix.features.value }} --features "${{ matrix.features.value }}"
 
-      - name: Update package.json for ${{ matrix.features.package_name }}
+      - name: Update package.json for lindera-wasm-${{ matrix.target.name }}-${{ matrix.features.name }}
         run: |
-          cd pkg-${{ matrix.features.value }}
-          jq '.name = "${{ matrix.features.package_name }}" | .description = "${{ matrix.features.package_description }}"' package.json > package.json.tmp
+          cd pkg-${{ matrix.target.value }}-${{ matrix.features.value }}
+          jq '.name = "lindera-wasm-${{ matrix.target.name }}-${{ matrix.features.name }}" | .description = "${{ matrix.features.package_description }} (${{ matrix.target.value }} target)"' package.json > package.json.tmp
           mv package.json.tmp package.json
 
-      - name: Install npm dependencies for ${{ matrix.features.package_name }}
+      - name: Install npm dependencies for lindera-wasm-${{ matrix.target.name }}-${{ matrix.features.name }}
         run: |
-          cd pkg-${{ matrix.features.value }}
+          cd pkg-${{ matrix.target.value }}-${{ matrix.features.value }}
           pnpm install
 
-      - name: Publish ${{ matrix.features.package_name }} to npm
+      - name: Publish lindera-wasm-${{ matrix.target.name }}-${{ matrix.features.name }} to npm
         run: |
-          cd pkg-${{ matrix.features.value }}
+          cd pkg-${{ matrix.target.value }}-${{ matrix.features.value }}
           pnpm publish --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}

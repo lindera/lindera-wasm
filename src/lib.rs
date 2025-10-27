@@ -1,3 +1,50 @@
+//! # lindera-wasm
+//!
+//! WebAssembly bindings for [Lindera](https://github.com/lindera/lindera), a morphological analysis library.
+//!
+//! This crate provides WASM bindings that enable Japanese, Korean, and Chinese text tokenization
+//! in web browsers and Node.js environments.
+//!
+//! ## Features
+//!
+//! - **Multiple dictionaries**: IPADIC, UniDic (Japanese), ko-dic (Korean), CC-CEDICT (Chinese)
+//! - **Flexible tokenization modes**: Normal and decompose modes
+//! - **Character filters**: Unicode normalization and more
+//! - **Token filters**: Lowercase, compound word handling, number normalization
+//! - **Custom user dictionaries**: Support for user-defined dictionaries
+//!
+//! ## Usage
+//!
+//! ### Web (Browser)
+//!
+//! ```javascript
+//! import __wbg_init, { TokenizerBuilder } from 'lindera-wasm-web-ipadic';
+//!
+//! __wbg_init().then(() => {
+//!     const builder = new TokenizerBuilder();
+//!     builder.setDictionary("embedded://ipadic");
+//!     builder.setMode("normal");
+//!
+//!     const tokenizer = builder.build();
+//!     const tokens = tokenizer.tokenize("関西国際空港");
+//!     console.log(tokens);
+//! });
+//! ```
+//!
+//! ### Node.js
+//!
+//! ```javascript
+//! const { TokenizerBuilder } = require('lindera-wasm-nodejs-ipadic');
+//!
+//! const builder = new TokenizerBuilder();
+//! builder.setDictionary("embedded://ipadic");
+//! builder.setMode("normal");
+//!
+//! const tokenizer = builder.build();
+//! const tokens = tokenizer.tokenize("関西国際空港");
+//! console.log(tokens);
+//! ```
+
 use std::str::FromStr;
 
 use serde_json::Value;
@@ -11,12 +58,26 @@ use lindera::tokenizer::{
 
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 
+/// Gets the version of the lindera-wasm library.
+///
+/// # Returns
+///
+/// The version string of the library (e.g., "1.0.0").
+///
+/// # Examples
+///
+/// ```javascript
+/// import { getVersion } from 'lindera-wasm';
+/// console.log(getVersion()); // "1.0.0"
+/// ```
 #[wasm_bindgen(js_name = "getVersion")]
 pub fn get_version() -> String {
     VERSION.to_string()
 }
 
-// Convert snake_case to camelCase
+/// Converts snake_case strings to camelCase.
+///
+/// This is used internally to convert Rust field names to JavaScript-friendly camelCase.
 fn to_camel_case(s: &str) -> String {
     let mut result = String::new();
     let mut capitalize_next = false;
@@ -35,7 +96,10 @@ fn to_camel_case(s: &str) -> String {
     result
 }
 
-// Convert Value to JsValue recursively
+/// Converts a serde_json::Value to a JsValue recursively.
+///
+/// This function handles conversion of various JSON types to their JavaScript equivalents,
+/// including objects, arrays, strings, numbers, booleans, and null values.
 fn value_to_js(value: Value) -> Result<JsValue, JsValue> {
     match value {
         Value::String(s) => Ok(JsValue::from_str(s.as_str())),
@@ -73,7 +137,9 @@ fn value_to_js(value: Value) -> Result<JsValue, JsValue> {
     }
 }
 
-// Convert Vec<Token> to JsValue (Array of Objects)
+/// Converts a vector of tokens to a JavaScript array of objects.
+///
+/// Each token is converted to a JavaScript object with camelCase field names.
 fn convert_to_js_objects(tokens: Vec<Token>) -> Result<JsValue, JsValue> {
     let js_array = js_sys::Array::new();
     for mut token in tokens {
@@ -83,6 +149,24 @@ fn convert_to_js_objects(tokens: Vec<Token>) -> Result<JsValue, JsValue> {
     Ok(js_array.into())
 }
 
+/// Builder for creating a [`Tokenizer`] instance.
+///
+/// `TokenizerBuilder` provides a fluent API for configuring and building a tokenizer
+/// with various options such as dictionary selection, tokenization mode, character filters,
+/// and token filters.
+///
+/// # Examples
+///
+/// ```javascript
+/// const builder = new TokenizerBuilder();
+/// builder.setDictionary("embedded://ipadic");
+/// builder.setMode("normal");
+/// builder.setKeepWhitespace(false);
+/// builder.appendCharacterFilter("unicode_normalize", { "kind": "nfkc" });
+/// builder.appendTokenFilter("lowercase");
+///
+/// const tokenizer = builder.build();
+/// ```
 #[wasm_bindgen]
 pub struct TokenizerBuilder {
     inner: LinderaTokenizerBuilder,
@@ -90,6 +174,21 @@ pub struct TokenizerBuilder {
 
 #[wasm_bindgen]
 impl TokenizerBuilder {
+    /// Creates a new `TokenizerBuilder` instance.
+    ///
+    /// # Returns
+    ///
+    /// A new `TokenizerBuilder` instance.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if the builder cannot be initialized.
+    ///
+    /// # Examples
+    ///
+    /// ```javascript
+    /// const builder = new TokenizerBuilder();
+    /// ```
     #[wasm_bindgen(constructor)]
     pub fn new() -> Result<Self, JsValue> {
         let inner =
@@ -98,6 +197,26 @@ impl TokenizerBuilder {
         Ok(Self { inner })
     }
 
+    /// Builds and returns a configured [`Tokenizer`] instance.
+    ///
+    /// This method consumes the builder and creates the final tokenizer with all
+    /// configured settings.
+    ///
+    /// # Returns
+    ///
+    /// A configured `Tokenizer` instance.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if the tokenizer cannot be built with the current configuration.
+    ///
+    /// # Examples
+    ///
+    /// ```javascript
+    /// const builder = new TokenizerBuilder();
+    /// builder.setDictionary("embedded://ipadic");
+    /// const tokenizer = builder.build();
+    /// ```
     pub fn build(self) -> Result<Tokenizer, JsValue> {
         let inner = self
             .inner
@@ -107,6 +226,25 @@ impl TokenizerBuilder {
         Ok(Tokenizer { inner })
     }
 
+    /// Sets the tokenization mode.
+    ///
+    /// # Parameters
+    ///
+    /// - `mode`: The tokenization mode. Valid values are:
+    ///   - `"normal"`: Standard tokenization
+    ///   - `"decompose"`: Decomposes compound words into their components
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if the mode string is invalid.
+    ///
+    /// # Examples
+    ///
+    /// ```javascript
+    /// builder.setMode("normal");
+    /// // or
+    /// builder.setMode("decompose");
+    /// ```
     #[wasm_bindgen(js_name = "setMode")]
     pub fn set_mode(&mut self, mode: &str) -> Result<(), JsValue> {
         let m = Mode::from_str(mode).map_err(|e| JsValue::from_str(&e.to_string()))?;
@@ -115,6 +253,21 @@ impl TokenizerBuilder {
         Ok(())
     }
 
+    /// Sets the dictionary to use for tokenization.
+    ///
+    /// # Parameters
+    ///
+    /// - `uri`: The dictionary URI. Valid embedded dictionaries are:
+    ///   - `"embedded://ipadic"`: Japanese IPADIC dictionary
+    ///   - `"embedded://unidic"`: Japanese UniDic dictionary
+    ///   - `"embedded://ko-dic"`: Korean ko-dic dictionary
+    ///   - `"embedded://cc-cedict"`: Chinese CC-CEDICT dictionary
+    ///
+    /// # Examples
+    ///
+    /// ```javascript
+    /// builder.setDictionary("embedded://ipadic");
+    /// ```
     #[wasm_bindgen(js_name = "setDictionary")]
     pub fn set_dictionary(&mut self, uri: &str) -> Result<(), JsValue> {
         self.inner.set_segmenter_dictionary(uri);
@@ -122,6 +275,20 @@ impl TokenizerBuilder {
         Ok(())
     }
 
+    /// Sets a user-defined dictionary.
+    ///
+    /// User dictionaries allow you to add custom words and their properties
+    /// to supplement the main dictionary.
+    ///
+    /// # Parameters
+    ///
+    /// - `uri`: The URI to the user dictionary file.
+    ///
+    /// # Examples
+    ///
+    /// ```javascript
+    /// builder.setUserDictionary("path/to/user_dict.csv");
+    /// ```
     #[wasm_bindgen(js_name = "setUserDictionary")]
     pub fn set_user_dictionary(&mut self, uri: &str) -> Result<(), JsValue> {
         self.inner.set_segmenter_user_dictionary(uri);
@@ -129,6 +296,44 @@ impl TokenizerBuilder {
         Ok(())
     }
 
+    /// Sets whether to keep whitespace tokens in the output.
+    ///
+    /// # Parameters
+    ///
+    /// - `keep`: If `true`, whitespace tokens are preserved; if `false`, they are removed.
+    ///
+    /// # Examples
+    ///
+    /// ```javascript
+    /// builder.setKeepWhitespace(false); // Remove whitespace tokens
+    /// // or
+    /// builder.setKeepWhitespace(true);  // Keep whitespace tokens
+    /// ```
+    #[wasm_bindgen(js_name = "setKeepWhitespace")]
+    pub fn set_keep_whitespace(&mut self, keep: bool) -> Result<(), JsValue> {
+        self.inner.set_segmenter_keep_whitespace(keep);
+
+        Ok(())
+    }
+
+    /// Appends a character filter to the tokenization pipeline.
+    ///
+    /// Character filters transform the input text before tokenization.
+    ///
+    /// # Parameters
+    ///
+    /// - `name`: The name of the character filter (e.g., `"unicode_normalize"`).
+    /// - `args`: A JavaScript object containing filter-specific arguments.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if the arguments cannot be parsed.
+    ///
+    /// # Examples
+    ///
+    /// ```javascript
+    /// builder.appendCharacterFilter("unicode_normalize", { "kind": "nfkc" });
+    /// ```
     #[wasm_bindgen(js_name = "appendCharacterFilter")]
     pub fn append_character_filter(&mut self, name: &str, args: JsValue) -> Result<(), JsValue> {
         let a = serde_wasm_bindgen::from_value::<Value>(args)
@@ -139,6 +344,25 @@ impl TokenizerBuilder {
         Ok(())
     }
 
+    /// Appends a token filter to the tokenization pipeline.
+    ///
+    /// Token filters transform or filter the tokens after tokenization.
+    ///
+    /// # Parameters
+    ///
+    /// - `name`: The name of the token filter (e.g., `"lowercase"`, `"japanese_number"`).
+    /// - `args`: A JavaScript object containing filter-specific arguments.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if the arguments cannot be parsed.
+    ///
+    /// # Examples
+    ///
+    /// ```javascript
+    /// builder.appendTokenFilter("lowercase");
+    /// builder.appendTokenFilter("japanese_number", { "tags": ["名詞,数"] });
+    /// ```
     #[wasm_bindgen(js_name = "appendTokenFilter")]
     pub fn append_token_filter(&mut self, name: &str, args: JsValue) -> Result<(), JsValue> {
         let a = serde_wasm_bindgen::from_value::<Value>(args)
@@ -150,6 +374,26 @@ impl TokenizerBuilder {
     }
 }
 
+/// A tokenizer for morphological analysis.
+///
+/// The `Tokenizer` performs text tokenization based on the configuration
+/// provided by [`TokenizerBuilder`].
+///
+/// # Examples
+///
+/// ```javascript
+/// const builder = new TokenizerBuilder();
+/// builder.setDictionary("embedded://ipadic");
+/// builder.setMode("normal");
+///
+/// const tokenizer = builder.build();
+/// const tokens = tokenizer.tokenize("関西国際空港");
+/// console.log(tokens);
+/// // Output: [
+/// //   { surface: "関西国際空港", ... },
+/// //   ...
+/// // ]
+/// ```
 #[wasm_bindgen]
 pub struct Tokenizer {
     inner: LinderaTokenizer,
@@ -157,6 +401,35 @@ pub struct Tokenizer {
 
 #[wasm_bindgen]
 impl Tokenizer {
+    /// Tokenizes the input text.
+    ///
+    /// Analyzes the input text and returns an array of token objects. Each token
+    /// contains information such as surface form, part-of-speech tags, reading, etc.
+    /// Field names in the returned objects are in camelCase.
+    ///
+    /// # Parameters
+    ///
+    /// - `input_text`: The text to tokenize.
+    ///
+    /// # Returns
+    ///
+    /// A JavaScript array of token objects. Each token object contains:
+    /// - `surface`: The surface form of the token
+    /// - `pos`: Part-of-speech tags
+    /// - Additional language-specific fields
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if tokenization fails.
+    ///
+    /// # Examples
+    ///
+    /// ```javascript
+    /// const tokens = tokenizer.tokenize("東京都に行く");
+    /// tokens.forEach(token => {
+    ///     console.log(token.surface, token.pos);
+    /// });
+    /// ```
     pub fn tokenize(&self, input_text: &str) -> Result<JsValue, JsValue> {
         let tokens = self
             .inner
