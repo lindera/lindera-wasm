@@ -96,7 +96,6 @@ export default defineConfig({
 and set the `content_security_policy` to contains `wasm-unsafe-eval` in manifest.json:
 
 ```json
-// manifest.json
 "content_security_policy": {
   "extension_pages": "script-src 'self' 'wasm-unsafe-eval';"
 }
