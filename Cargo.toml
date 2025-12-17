@@ -1,6 +1,6 @@
 [package]
 name = "lindera-wasm"
-version = "1.2.1"
+version = "1.2.2"
 edition = "2024"
 description = "A morphological analysis library for WebAssembly."
 documentation = "https://docs.rs/lindera-wasm"
@@ -35,15 +35,15 @@ once_cell = "1.21.3"
 serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.145"
 serde-wasm-bindgen = "0.6.5"
-wasm-bindgen = { version = "0.2.104" }
-js-sys = "0.3.81"
+wasm-bindgen = { version = "0.2.106" }
+js-sys = "0.3.83"
 
-lindera = "1.4.1"
+lindera = "1.4.2"
 
 [dev-dependencies]
 serde_json = "1.0.145"
-wasm-bindgen-test = "0.3.54"
-wasm-bindgen = { version = "0.2.104" }
+wasm-bindgen-test = "0.3.56"
+wasm-bindgen = { version = "0.2.106" }
 
 [profile.release]
 # Tell `rustc` to optimize for small code size.
