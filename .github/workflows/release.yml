@@ -163,15 +163,24 @@ jobs:
           toolchain: ${{ matrix.toolchain }}
           components: rustfmt, clippy
 
-      - name: Publish lindera-wasm
+      - name: Check lindera-wasm publish status
+        id: check_lindera_wasm
         run: |
-          LINDERA_WASM_VERSION=$(cargo metadata --no-deps --format-version=1 | jq -r '.packages[] | select(.name=="lindera-wasm") | .version')
-          LINDERA_WASM_VERSIONS=$(curl -s -XGET https://crates.io/api/v1/crates/lindera-wasm | jq -r 'select(.versions != null) | .versions[].num')
-          if echo ${LINDERA_WASM_VERSIONS} | grep ${LINDERA_WASM_VERSION} >/dev/null; then
-            echo "lindera-wasm ${LINDERA_WASM_VERSION} has already published"
+          set -euo pipefail
+          VERSION=$(cargo metadata --no-deps --format-version=1 | jq -r '.packages[] | select(.name=="lindera-wasm") | .version')
+          EXISTING_VERSION=$(curl -s https://crates.io/api/v1/crates/lindera-wasm | jq -r '.versions[].num' | grep -Fx "$VERSION" || true)
+
+          if [ -n "$EXISTING_VERSION" ]; then
+            echo "published=true" >> "$GITHUB_OUTPUT"
+            echo "lindera-wasm $VERSION already published; skipping."
           else
-            cargo publish
+            echo "published=false" >> "$GITHUB_OUTPUT"
+            echo "lindera-wasm $VERSION not yet published; will publish."
           fi
+
+      - name: Publish lindera-wasm
+        if: steps.check_lindera_wasm.outputs.published == 'false'
+        run: cargo publish
         env:
           CARGO_REGISTRY_TOKEN: ${{ secrets.CRATES_TOKEN }}
 
