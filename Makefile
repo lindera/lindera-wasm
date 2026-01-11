@@ -24,7 +24,7 @@ publish: ## Publish the project
 	wasm-pack publish --access=public --target=web
 
 build-example: ## Build the example application
-	wasm-pack build --release --features=embedded-ipadic --target=web && \
+	wasm-pack build --release --features=embed-ipadic --target=web && \
 	cd lindera-wasm && \
 	jq '.version = "$(VERSION)"' ./package.json > ./temp.json && mv ./temp.json ./package.json && \
 	npm install && \

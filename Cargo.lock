@@ -525,6 +525,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bf151400ff0baff5465007dd2f3e717f3fe502074ca563069ce3a6629d07b289"
 
 [[package]]
+name = "hashbrown"
+version = "0.16.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "841d1cc9bed7f9236f321df977030373f4a4163ae1a7dbfe1a51a2c1a51d9100"
+
+[[package]]
 name = "heck"
 version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -788,7 +794,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "707907fe3c25f5424cce2cb7e1cbcafee6bdbe735ca90ef77c29e84591e5b9da"
 dependencies = [
  "equivalent",
- "hashbrown",
+ "hashbrown 0.15.2",
 ]
 
 [[package]]
@@ -889,9 +895,9 @@ dependencies = [
 
 [[package]]
 name = "lindera"
-version = "1.5.1"
+version = "2.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "37c705f6841f5d6d92f0fb49b3394e0b633f7b68e6bb6bfaaf02d794ade1de61"
+checksum = "5b24b63a13a8b2de281b5d07a7d3494bb63f862148dfea0deb9d0b9589f37a84"
 dependencies = [
  "anyhow",
  "byteorder",
@@ -903,6 +909,7 @@ dependencies = [
  "lindera-ipadic-neologd",
  "lindera-ko-dic",
  "lindera-unidic",
+ "log",
  "once_cell",
  "percent-encoding",
  "regex",
@@ -920,9 +927,9 @@ dependencies = [
 
 [[package]]
 name = "lindera-cc-cedict"
-version = "1.5.1"
+version = "2.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "34aad0b904e0e5c6ab4df0c426e9e7e73baa1bd02beb5f6caa299a2c50b65be5"
+checksum = "b5fb6c378e451c614890c223808baf8e9416bce766000316ccb54c896726e5d6"
 dependencies = [
  "anyhow",
  "byteorder",
@@ -936,9 +943,9 @@ dependencies = [
 
 [[package]]
 name = "lindera-dictionary"
-version = "1.5.1"
+version = "2.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "58d801e2f083a6a55c95eab013b8159029a538bb23d25f998537ca83f519c0ce"
+checksum = "48c76799a6d2a55eb4425b04ae0e0399dc4f9b2f644403c3bb75576b50fe54a4"
 dependencies = [
  "anyhow",
  "byteorder",
@@ -970,9 +977,9 @@ dependencies = [
 
 [[package]]
 name = "lindera-ipadic"
-version = "1.5.1"
+version = "2.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4c96c39429b860d3cd6673817654f73c3569fdd4ff5ee350579b7144f3af6607"
+checksum = "a4df4314530c32bfbca1eac7ddd223b52cc5b61b629d0729dafa699c85068a68"
 dependencies = [
  "anyhow",
  "byteorder",
@@ -986,9 +993,9 @@ dependencies = [
 
 [[package]]
 name = "lindera-ipadic-neologd"
-version = "1.5.1"
+version = "2.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "aafe1b69d68bf202c1dc38f7650617269627806b532addf179f6ecd117290a13"
+checksum = "f376c0d638dd19429e737da68648e96ab86ef671be52266e7ef87dfe6096c2ec"
 dependencies = [
  "anyhow",
  "byteorder",
@@ -1002,9 +1009,9 @@ dependencies = [
 
 [[package]]
 name = "lindera-ko-dic"
-version = "1.5.1"
+version = "2.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "420133c798b4162a1fb3e8c483da0add4e370f22d3e90c9f2ef15013bdac9ce2"
+checksum = "924e9b80b4c43107d379667dad2349b30af98d7a74c80e8260b6e4e365c4632c"
 dependencies = [
  "anyhow",
  "byteorder",
@@ -1018,9 +1025,9 @@ dependencies = [
 
 [[package]]
 name = "lindera-unidic"
-version = "1.5.1"
+version = "2.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ae93789d60f4423c341af4f17bb83180a30aa3c156329fab647f446e00cf364b"
+checksum = "3e0124a535ab2c25939e6b16a9c6caa950511f1b52015c914258978293a95240"
 dependencies = [
  "anyhow",
  "byteorder",
@@ -1034,7 +1041,7 @@ dependencies = [
 
 [[package]]
 name = "lindera-wasm"
-version = "1.3.1"
+version = "2.0.0"
 dependencies = [
  "js-sys",
  "lindera",
@@ -1453,13 +1460,13 @@ dependencies = [
 
 [[package]]
 name = "rkyv"
-version = "0.8.12"
+version = "0.8.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "35a640b26f007713818e9a9b65d34da1cf58538207b052916a83d80e43f3ffa4"
+checksum = "8b2e88acca7157d83d789836a3987dafc12bc3d88a050e54b8fe9ea4aaa29d20"
 dependencies = [
  "bytecheck",
  "bytes",
- "hashbrown",
+ "hashbrown 0.16.1",
  "indexmap",
  "munge",
  "ptr_meta",
@@ -1472,9 +1479,9 @@ dependencies = [
 
 [[package]]
 name = "rkyv_derive"
-version = "0.8.12"
+version = "0.8.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bd83f5f173ff41e00337d97f6572e416d022ef8a19f371817259ae960324c482"
+checksum = "7f6dffea3c91fa91a3c0fc8a061b0e27fef25c6304728038a6d6bcb1c58ba9bd"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1671,9 +1678,9 @@ dependencies = [
 
 [[package]]
 name = "serde_json"
-version = "1.0.148"
+version = "1.0.149"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3084b546a1dd6289475996f182a22aba973866ea8e8b02c51d9f46b1336a22da"
+checksum = "83fc039473c5595ace860d8c4fafa220ff474b3fc6bfdb4293327f1a37e94d86"
 dependencies = [
  "itoa",
  "memchr",
@@ -2048,9 +2055,9 @@ checksum = "8ecb6da28b8a351d773b68d5825ac39017e680750f980f3a1a85cd8dd28a47c1"
 
 [[package]]
 name = "url"
-version = "2.5.7"
+version = "2.5.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "08bc136a29a3d1758e07a9cca267be308aeebf5cfd5a10f3f67ab2097683ef5b"
+checksum = "ff67a8a4397373c3ef660812acab3268222035010ab8680ec4215f38ba3d0eed"
 dependencies = [
  "form_urlencoded",
  "idna",

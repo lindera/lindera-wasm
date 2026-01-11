@@ -1,6 +1,6 @@
 [package]
 name = "lindera-wasm"
-version = "1.3.1"
+version = "2.0.0"
 edition = "2024"
 description = "A morphological analysis library for WebAssembly."
 documentation = "https://docs.rs/lindera-wasm"
@@ -15,33 +15,33 @@ license = "MIT"
 crate-type = ["cdylib"]
 
 [features]
-embedded-ipadic = [
-    "lindera/embedded-ipadic",
+embed-ipadic = [
+    "lindera/embed-ipadic",
 ] # Embed IPADIC dictionary (Japanese)
-embedded-unidic = [
-    "lindera/embedded-unidic",
+embed-unidic = [
+    "lindera/embed-unidic",
 ] # Embed UniDic dictionary (Japanese)
-embedded-ko-dic = ["lindera/embedded-ko-dic"] # Embed ko-dic dictionary (Korean)
-embedded-cc-cedict = [
-    "lindera/embedded-cc-cedict",
+embed-ko-dic = ["lindera/embed-ko-dic"] # Embed ko-dic dictionary (Korean)
+embed-cc-cedict = [
+    "lindera/embed-cc-cedict",
 ] # Embed CC-CEDICT dictionary (Chinese)
-embedded-cjk = [
-    "lindera/embedded-cjk",
+embed-cjk = [
+    "lindera/embed-cjk",
 ] # Embed IPADIC dictionary (Japanese), ko-dic dictionary (Korean), CC-CEDICT dictionary (Chinese)
 default = []
 
 [dependencies]
 once_cell = "1.21.3"
 serde = { version = "1.0.228", features = ["derive"] }
-serde_json = "1.0.148"
+serde_json = "1.0.149"
 serde-wasm-bindgen = "0.6.5"
 wasm-bindgen = { version = "0.2.106" }
 js-sys = "0.3.83"
 
-lindera = "1.5.1"
+lindera = "2.0.1"
 
 [dev-dependencies]
-serde_json = "1.0.148"
+serde_json = "1.0.149"
 wasm-bindgen-test = "0.3.56"
 wasm-bindgen = { version = "0.2.106" }
 
