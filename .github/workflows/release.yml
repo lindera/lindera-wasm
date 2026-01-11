@@ -21,7 +21,7 @@ jobs:
           - runner: ubuntu-latest
             target: x86_64
         toolchain: [stable]
-        features: [embedded-cjk]
+        features: [embed-cjk]
     runs-on: ${{ matrix.platform.runner }}
     steps:
       - name: Run checkout
@@ -46,7 +46,7 @@ jobs:
             target: x86_64-unknown-linux-gnu
             test-runner: --node
         toolchain: [stable]
-        features: [embedded-cjk]
+        features: [embed-cjk]
     runs-on: ${{ matrix.platform.runner }}
     steps:
       - name: Run checkout
@@ -102,7 +102,7 @@ jobs:
             target: x86_64-unknown-linux-gnu
             wasm-target: web
         toolchain: [stable]
-        features: [embedded-ipadic]
+        features: [embed-ipadic]
     runs-on: ${{ matrix.platform.runner }}
     permissions:
       contents: write
@@ -186,19 +186,19 @@ jobs:
           - value: "nodejs"
             name: "nodejs"
         features:
-          - value: "embedded-ipadic"
+          - value: "embed-ipadic"
             name: "ipadic"
             package_description: "Lindera WASM with Japanese dictionary (IPADIC)"
-          - value: "embedded-unidic"
+          - value: "embed-unidic"
             name: "unidic"
             package_description: "Lindera WASM with Japanese dictionary (UniDic)"
-          - value: "embedded-ko-dic"
+          - value: "embed-ko-dic"
             name: "ko-dic"
             package_description: "Lindera WASM with Korean dictionary (ko-dic)"
-          - value: "embedded-cc-cedict"
+          - value: "embed-cc-cedict"
             name: "cc-cedict"
             package_description: "Lindera WASM with Chinese dictionary (CC-CEDICT)"
-          - value: "embedded-cjk"
+          - value: "embed-cjk"
             name: "cjk"
             package_description: "Lindera WASM with CJK dictionaries (IPADIC, ko-dic, CC-CEDICT)"
 
