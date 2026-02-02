@@ -223,6 +223,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "daachorse"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "63b7ef7a4be509357f4804d0a22e830daddb48f19fd604e4ad32ddce04a94c36"
+
+[[package]]
 name = "darling"
 version = "0.20.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -423,9 +429,9 @@ checksum = "645cbb3a84e60b7531617d5ae4e57f7e27308f6445f5abf653209ea76dec8dff"
 
 [[package]]
 name = "flate2"
-version = "1.1.5"
+version = "1.1.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bfe33edd8e85a12a67454e37f8c75e730830d83e313556ab9ebf9ee7fbeb3bfb"
+checksum = "b375d6465b98090a5f25b1c7703f3859783755aa9a80433b36e0379a3ec2f369"
 dependencies = [
  "crc32fast",
  "miniz_oxide",
@@ -895,13 +901,14 @@ dependencies = [
 
 [[package]]
 name = "lindera"
-version = "2.0.1"
+version = "2.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5b24b63a13a8b2de281b5d07a7d3494bb63f862148dfea0deb9d0b9589f37a84"
+checksum = "27f30fef95690ce3fafdaeff287d00b00e66c15518777e2fc6b3992f26796540"
 dependencies = [
  "anyhow",
  "byteorder",
  "csv",
+ "daachorse",
  "kanaria",
  "lindera-cc-cedict",
  "lindera-dictionary",
@@ -922,14 +929,13 @@ dependencies = [
  "unicode-normalization",
  "unicode-segmentation",
  "url",
- "yada",
 ]
 
 [[package]]
 name = "lindera-cc-cedict"
-version = "2.0.1"
+version = "2.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b5fb6c378e451c614890c223808baf8e9416bce766000316ccb54c896726e5d6"
+checksum = "55262f1a81e62784d920666cdf212bd75aec2514e2325a54358a5ec928bb0334"
 dependencies = [
  "anyhow",
  "byteorder",
@@ -943,13 +949,14 @@ dependencies = [
 
 [[package]]
 name = "lindera-dictionary"
-version = "2.0.1"
+version = "2.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "48c76799a6d2a55eb4425b04ae0e0399dc4f9b2f644403c3bb75576b50fe54a4"
+checksum = "a4f046fa26929c1a864821e215b8804def2ee9c2e9b096ef5c46b623e4b365ec"
 dependencies = [
  "anyhow",
  "byteorder",
  "csv",
+ "daachorse",
  "derive_builder",
  "encoding",
  "encoding_rs",
@@ -970,16 +977,15 @@ dependencies = [
  "strum",
  "strum_macros",
  "tar",
- "thiserror 2.0.17",
+ "thiserror 2.0.18",
  "tokio",
- "yada",
 ]
 
 [[package]]
 name = "lindera-ipadic"
-version = "2.0.1"
+version = "2.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a4df4314530c32bfbca1eac7ddd223b52cc5b61b629d0729dafa699c85068a68"
+checksum = "4db8c10eb7f441890adb40ff951a0572096735d3598263c21b6d214358086085"
 dependencies = [
  "anyhow",
  "byteorder",
@@ -993,9 +999,9 @@ dependencies = [
 
 [[package]]
 name = "lindera-ipadic-neologd"
-version = "2.0.1"
+version = "2.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f376c0d638dd19429e737da68648e96ab86ef671be52266e7ef87dfe6096c2ec"
+checksum = "d4748383ad732993ebcbe8a8825998f48e016eed43eb2b5ea5862c55fff8383d"
 dependencies = [
  "anyhow",
  "byteorder",
@@ -1009,9 +1015,9 @@ dependencies = [
 
 [[package]]
 name = "lindera-ko-dic"
-version = "2.0.1"
+version = "2.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "924e9b80b4c43107d379667dad2349b30af98d7a74c80e8260b6e4e365c4632c"
+checksum = "c9485489b67ef8973762d7fa25b1e1db0b4d308b4cdfcf3b30bb89343dae1f38"
 dependencies = [
  "anyhow",
  "byteorder",
@@ -1025,9 +1031,9 @@ dependencies = [
 
 [[package]]
 name = "lindera-unidic"
-version = "2.0.1"
+version = "2.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3e0124a535ab2c25939e6b16a9c6caa950511f1b52015c914258978293a95240"
+checksum = "5a55db1c6865d2b6493c7d11247482d35d5cd0c05705649b5f45ed6e9c2e8350"
 dependencies = [
  "anyhow",
  "byteorder",
@@ -1266,7 +1272,7 @@ dependencies = [
  "rustc-hash",
  "rustls",
  "socket2 0.5.10",
- "thiserror 2.0.17",
+ "thiserror 2.0.18",
  "tokio",
  "tracing",
  "web-time",
@@ -1288,7 +1294,7 @@ dependencies = [
  "rustls",
  "rustls-pki-types",
  "slab",
- "thiserror 2.0.17",
+ "thiserror 2.0.18",
  "tinyvec",
  "tracing",
  "web-time",
@@ -1460,9 +1466,9 @@ dependencies = [
 
 [[package]]
 name = "rkyv"
-version = "0.8.13"
+version = "0.8.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8b2e88acca7157d83d789836a3987dafc12bc3d88a050e54b8fe9ea4aaa29d20"
+checksum = "360b333c61ae24e5af3ae7c8660bd6b21ccd8200dbbc5d33c2454421e85b9c69"
 dependencies = [
  "bytecheck",
  "bytes",
@@ -1479,9 +1485,9 @@ dependencies = [
 
 [[package]]
 name = "rkyv_derive"
-version = "0.8.13"
+version = "0.8.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7f6dffea3c91fa91a3c0fc8a061b0e27fef25c6304728038a6d6bcb1c58ba9bd"
+checksum = "7c02f8cdd12b307ab69fe0acf4cd2249c7460eb89dce64a0febadf934ebb6a9e"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1853,11 +1859,11 @@ dependencies = [
 
 [[package]]
 name = "thiserror"
-version = "2.0.17"
+version = "2.0.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f63587ca0f12b72a0600bcba1d40081f830876000bb46dd2337a3051618f4fc8"
+checksum = "4288b5bcbc7920c07a1149a35cf9590a2aa808e0bc1eafaade0b80947865fbc4"
 dependencies = [
- "thiserror-impl 2.0.17",
+ "thiserror-impl 2.0.18",
 ]
 
 [[package]]
@@ -1873,9 +1879,9 @@ dependencies = [
 
 [[package]]
 name = "thiserror-impl"
-version = "2.0.17"
+version = "2.0.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3ff15c8ecd7de3849db632e14d18d2571fa09dfc5ed93479bc4485c7a517c913"
+checksum = "ebc4ee7f67670e9b64d05fa4253e753e016c6c95ff35b89b7941d6b856dec1d5"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -2443,12 +2449,6 @@ dependencies = [
  "linux-raw-sys",
  "rustix",
 ]
-
-[[package]]
-name = "yada"
-version = "0.5.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "aed111bd9e48a802518765906cbdadf0b45afb72b9c81ab049a3b86252adffdd"
 
 [[package]]
 name = "yoke"
